@@ -11,13 +11,20 @@ pub fn main() anyerror!void {
 
     rl.setTargetFPS(60);
 
+    c.clear();
+
+    try c.g.gridInit();
+
     while (!rl.windowShouldClose()) { // Detect window close button or ESC key
 
         if (c.w.windowHasBeenQuit()) break;
 
         rl.drawFPS(20, 20);
 
+        c.g.updateCellSelector();
+
         rl.beginDrawing();
+
         defer rl.endDrawing();
 
         rl.clearBackground(rl.Color.white);
