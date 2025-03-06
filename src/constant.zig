@@ -1,4 +1,4 @@
-//Here All of constants and files
+//Here are All of constants
 
 pub const std = @import("std");
 
