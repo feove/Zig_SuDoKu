@@ -6,8 +6,10 @@ pub const print = std.debug.print;
 
 pub const stdout = std.io.getStdOut().writer();
 
+//Files
 pub const w = @import("window.zig");
 pub const g = @import("grid.zig");
+pub const m = @import("main.zig");
 
 pub const rl = @import("raylib");
 

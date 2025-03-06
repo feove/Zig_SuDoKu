@@ -1,10 +1,9 @@
 const c = @import("constant.zig");
 
+pub const screenWidth = 800;
+pub const screenHeight = 800;
 pub fn main() anyerror!void {
-    const screenWidth = 800;
-    const screenHeight = 800;
-
-    c.rl.initWindow(screenWidth, screenHeight, "raylib-zig [core] example - basic window");
+    c.rl.initWindow(screenWidth, screenHeight, "SuDoKu Game");
     defer c.rl.closeWindow(); // Close window and OpenGL context
 
     c.rl.setTargetFPS(60);
@@ -21,6 +20,8 @@ pub fn main() anyerror!void {
 
         c.g.updateCellSelector();
 
+        c.g.isIntegerPressed();
+
         c.rl.beginDrawing();
 
         defer c.rl.endDrawing();
@@ -28,6 +29,5 @@ pub fn main() anyerror!void {
         c.rl.clearBackground(c.rl.Color.white);
 
         c.rl.drawText("Grid Here", 200, 400, 20, c.rl.Color.light_gray);
-        //----------------------------------------------------------------------------------
     }
 }

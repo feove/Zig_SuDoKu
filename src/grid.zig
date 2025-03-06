@@ -46,11 +46,11 @@ pub fn updateCellSelector() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.right) and !currentCellSelected.on_right) {
         cellSwitching(currentCellSelected.x, currentCellSelected.y, 1, 0);
     }
-
+    drawFrontEndGrid();
     drawBackendGrid();
 }
 
-pub fn cellSwitching(x: u8, y: u8, i: i8, j: i8) void {
+fn cellSwitching(x: u8, y: u8, i: i8, j: i8) void {
     if (gridLocation) |grid| {
         grid[y][x] = ' ';
 
@@ -69,6 +69,23 @@ pub fn cellSwitching(x: u8, y: u8, i: i8, j: i8) void {
     }
 }
 
+pub fn isIntegerPressed() void {
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) integerSetting('1');
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.two)) integerSetting('2');
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.three)) integerSetting('3');
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.four)) integerSetting('4');
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.five)) integerSetting('5');
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.six)) integerSetting('6');
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.seven)) integerSetting('7');
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.eight)) integerSetting('8');
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.nine)) integerSetting('9');
+}
+
+fn integerSetting(integer: u8) void {
+    gridLocation.?.*[currentCellSelected.y][currentCellSelected.x] = integer;
+    drawBackendGrid();
+}
+
 pub fn drawBackendGrid() void {
     c.clear();
 
@@ -79,4 +96,25 @@ pub fn drawBackendGrid() void {
         c.print("\n", .{});
     }
     c.print("\n" ** 3, .{});
+    c.print(" X : {d}\n Y : {d}\n", .{ currentCellSelected.x, currentCellSelected.y });
+    c.print("\n" ** 3, .{});
+}
+pub fn drawFrontEndGrid() void {
+    var x: i32 = 70;
+    var y: i32 = 70;
+
+    const spacement = 70;
+
+    const x_end = 70 + spacement * n;
+    const y_end = 70 + spacement * n;
+
+    for (1..n + 2) |_| { // Use `_` since we don't need the loop variable
+        c.rl.drawLine(x, y, x, y_end, c.rl.Color.black);
+        x += spacement;
+    }
+    x = 70;
+    for (1..n + 2) |_| { // Use `_` since we don't need the loop variable
+        c.rl.drawLine(x, y, x_end, y, c.rl.Color.black);
+        y += spacement;
+    }
 }
