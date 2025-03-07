@@ -1,5 +1,8 @@
 const c = @import("constant.zig");
 
+pub const spacement = 70;
+pub const init_grid_position: c.rl.Vector2 = c.rl.Vector2.init(70, 70);
+
 var gpa = c.std.heap.GeneralPurposeAllocator(.{}){};
 const allocator = gpa.allocator();
 const n: usize = 9;
@@ -9,6 +12,7 @@ var gridLocation: ?*[n][n]u8 = null;
 const currentCell = struct {
     x: u8 = 0,
     y: u8 = 0,
+    // x_on_the_grid: u8 =
     on_top: bool = true,
     on_left: bool = true,
     on_right: bool = false,
@@ -48,6 +52,30 @@ pub fn updateCellSelector() void {
     }
     drawFrontEndGrid();
     drawBackendGrid();
+
+    drawSelectorGrid();
+}
+
+pub fn drawSelectorGrid() void {
+    c.rl.drawText("▁▁", 200, 400, 20, c.rl.Color.light_gray);
+}
+
+pub fn drawFrontEndGrid() void {
+    var x: i32 = init_grid_position.x;
+    var y: i32 = init_grid_position.y;
+
+    const x_end = init_grid_position.x + spacement * n;
+    const y_end = init_grid_position.y + spacement * n;
+
+    for (1..n + 2) |_| {
+        c.rl.drawLine(x, y, x, y_end, c.rl.Color.black);
+        x += spacement;
+    }
+    x = init_grid_position.x;
+    for (1..n + 2) |_| {
+        c.rl.drawLine(x, y, x_end, y, c.rl.Color.black);
+        y += spacement;
+    }
 }
 
 fn cellSwitching(x: u8, y: u8, i: i8, j: i8) void {
@@ -98,23 +126,4 @@ pub fn drawBackendGrid() void {
     c.print("\n" ** 3, .{});
     c.print(" X : {d}\n Y : {d}\n", .{ currentCellSelected.x, currentCellSelected.y });
     c.print("\n" ** 3, .{});
-}
-pub fn drawFrontEndGrid() void {
-    var x: i32 = 70;
-    var y: i32 = 70;
-
-    const spacement = 70;
-
-    const x_end = 70 + spacement * n;
-    const y_end = 70 + spacement * n;
-
-    for (1..n + 2) |_| { // Use `_` since we don't need the loop variable
-        c.rl.drawLine(x, y, x, y_end, c.rl.Color.black);
-        x += spacement;
-    }
-    x = 70;
-    for (1..n + 2) |_| { // Use `_` since we don't need the loop variable
-        c.rl.drawLine(x, y, x_end, y, c.rl.Color.black);
-        y += spacement;
-    }
 }

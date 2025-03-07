@@ -1,10 +1,10 @@
 const c = @import("constant.zig");
 
-pub const screenWidth = 800;
-pub const screenHeight = 800;
+pub const screenWidth = 770;
+pub const screenHeight = 770;
 pub fn main() anyerror!void {
     c.rl.initWindow(screenWidth, screenHeight, "SuDoKu Game");
-    defer c.rl.closeWindow(); // Close window and OpenGL context
+    defer c.rl.closeWindow();
 
     c.rl.setTargetFPS(60);
 
@@ -12,9 +12,11 @@ pub fn main() anyerror!void {
 
     try c.g.gridInit();
 
-    while (!c.rl.windowShouldClose()) { // Detect window close button or ESC key
-
+    while (!c.rl.windowShouldClose()) {
         if (c.w.windowHasBeenQuit()) break;
+
+        c.rl.beginDrawing();
+        defer c.rl.endDrawing();
 
         c.rl.drawFPS(20, 20);
 
@@ -22,12 +24,6 @@ pub fn main() anyerror!void {
 
         c.g.isIntegerPressed();
 
-        c.rl.beginDrawing();
-
-        defer c.rl.endDrawing();
-
         c.rl.clearBackground(c.rl.Color.white);
-
-        c.rl.drawText("Grid Here", 200, 400, 20, c.rl.Color.light_gray);
     }
 }
