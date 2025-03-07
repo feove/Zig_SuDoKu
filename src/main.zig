@@ -10,7 +10,8 @@ pub fn main() anyerror!void {
 
     c.clear();
 
-    try c.g.gridInit();
+    try c.g.BackendgridInit();
+    try c.g.FrontendgridInit();
 
     while (!c.rl.windowShouldClose()) {
         if (c.w.windowHasBeenQuit()) break;

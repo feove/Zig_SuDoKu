@@ -10,11 +10,12 @@ const v_diff_cursor: f32 = spacement;
 
 var selector_shape: c.rl.Rectangle = c.rl.Rectangle.init(init_selector_position.x, init_selector_position.y, 40, 5);
 
-var gpa = c.std.heap.GeneralPurposeAllocator(.{}){};
-const allocator = gpa.allocator();
-const n: usize = 9;
-
-var gridLocation: ?*[n][n]u8 = null;
+const Cell = struct {
+    x: u16,
+    y: u16,
+    width: u16,
+    height: u16,
+};
 
 const FrontEndCursorLimits = struct {
     x_left: u16 = init_grid_position.x,
@@ -51,17 +52,42 @@ const CurrentCellBackend = struct {
 var currentCellBackEnd = CurrentCellBackend{};
 var currentCellFrontEnd = CurrentCellFrontEnd{};
 
-pub fn gridInit() !void {
-    var grid = try allocator.create([n][n]u8);
+var gpa = c.std.heap.GeneralPurposeAllocator(.{}){};
+const allocator = gpa.allocator();
+
+const n: usize = 9;
+var BackendgridLocation: ?*[n][n]u8 = null;
+
+pub fn BackendgridInit() !void {
+    var backend_grid = try allocator.create([n][n]u8);
 
     for (0..n) |i| {
         for (0..n) |j| {
-            grid[i][j] = ' ';
+            backend_grid[i][j] = ' ';
         }
         c.print("\n", .{});
     }
 
-    gridLocation = grid;
+    BackendgridLocation = backend_grid;
+}
+
+var FrontendgridLocation: ?*[n][n]Cell = null;
+
+pub fn FrontendgridInit() !void {
+    var frontend_grid = try allocator.create([n][n]Cell); // Allocate memory for a 2D array of Cells
+
+    for (0..n) |i| {
+        for (0..n) |j| {
+            frontend_grid[i][j] = Cell{
+                .x = @intFromFloat(init_grid_position.x + @as(f32, @floatFromInt(i)) * spacement + 20),
+                .y = @intFromFloat(init_grid_position.y + @as(f32, @floatFromInt(j)) * spacement + 20),
+                .width = spacement - 20,
+                .height = spacement - 20,
+            };
+        }
+    }
+
+    FrontendgridLocation = frontend_grid;
 }
 
 pub fn updateCellSelector() void {
@@ -89,6 +115,8 @@ pub fn updateCellSelector() void {
 
     drawFrontEndGrid();
     drawSelectorGrid();
+
+    isClickedOnCell();
 }
 
 fn drawSelectorGrid() void {
@@ -118,7 +146,7 @@ fn cellSwitchingFrontend(i: i32, j: i32) void {
 }
 
 fn cellSwitchingBackend(x: u8, y: u8, i: i8, j: i8) void {
-    if (gridLocation) |grid| {
+    if (BackendgridLocation) |grid| {
         grid[y][x] = ' ';
 
         const new_x: u8 = @intCast(@as(i16, x) + i);
@@ -167,7 +195,7 @@ pub fn isIntegerPressed() void {
 }
 
 fn integerSetting(integer: u8) void {
-    gridLocation.?.*[currentCellBackEnd.y][currentCellBackEnd.x] = integer;
+    BackendgridLocation.?.*[currentCellBackEnd.y][currentCellBackEnd.x] = integer;
     drawBackendGrid();
 }
 
@@ -176,7 +204,7 @@ pub fn drawBackendGrid() void {
 
     for (0..n) |i| {
         for (0..n) |j| {
-            c.print("[{c}]", .{gridLocation.?.*[i][j]});
+            c.print("[{c}]", .{BackendgridLocation.?.*[i][j]});
         }
         c.print("\n", .{});
     }
@@ -184,4 +212,16 @@ pub fn drawBackendGrid() void {
     c.print(" Backend :\n X : {d}\n Y : {d}\n", .{ currentCellBackEnd.x, currentCellBackEnd.y });
     c.print("\n Frontend :\n X : {d}\n Y : {d}\n", .{ currentCellFrontEnd.x, currentCellFrontEnd.y });
     c.print("\n" ** 3, .{});
+}
+
+fn isClickedOnCell() void {
+    if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) { // Detect left mouse click
+        const mousePos = c.rl.getMousePosition();
+
+        // Convert f32 to i32 for better readability
+        const mouseX: i32 = @as(i32, @intFromFloat(mousePos.x));
+        const mouseY: i32 = @as(i32, @intFromFloat(mousePos.y));
+
+        c.print("Mouse Clicked at: X: {d}, Y: {d}\n", .{ mouseX, mouseY });
+    }
 }
