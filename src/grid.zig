@@ -166,6 +166,10 @@ fn cellSwitchingBackend(x: u8, y: u8, i: i8, j: i8) void {
 }
 
 pub fn isIntegerPressed() void {
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.backspace)) {
+        integerSettingBackend(' ');
+        integerSettingFrontend(" ");
+    }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
         integerSettingBackend('1');
         integerSettingFrontend("1");
