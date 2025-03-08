@@ -19,12 +19,12 @@ pub fn main() anyerror!void {
         c.rl.beginDrawing();
         defer c.rl.endDrawing();
 
+        c.g.drawFrontEndGrid();
+
         c.rl.drawFPS(20, 20);
 
         c.g.updateCellSelector();
 
         c.g.isIntegerPressed();
-
-        c.rl.clearBackground(c.rl.Color.white);
     }
 }

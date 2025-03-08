@@ -5,9 +5,6 @@ const spacement = 70;
 const init_grid_position: c.rl.Vector2 = c.rl.Vector2.init(70, 70);
 const init_selector_position: c.rl.Vector2 = c.rl.Vector2.init(85, 120); //Left Top Corner
 
-const h_diff_cursor: f32 = spacement;
-const v_diff_cursor: f32 = spacement;
-
 var selector_shape: c.rl.Rectangle = c.rl.Rectangle.init(init_selector_position.x, init_selector_position.y, 40, 5);
 
 const Cell = struct {
@@ -15,6 +12,7 @@ const Cell = struct {
     y: u16,
     width: u16,
     height: u16,
+    value: [:0]const u8,
 };
 
 const FrontEndCursorLimits = struct {
@@ -83,6 +81,7 @@ pub fn FrontendgridInit() !void {
                 .y = @intFromFloat(init_grid_position.y + @as(f32, @floatFromInt(j)) * spacement + 20),
                 .width = spacement - 20,
                 .height = spacement - 20,
+                .value = " ",
             };
         }
     }
@@ -113,7 +112,6 @@ pub fn updateCellSelector() void {
 
     drawBackendGrid(); //Draw selectorBackend too
 
-    drawFrontEndGrid();
     drawSelectorGrid();
 
     isClickedOnCell();
@@ -127,7 +125,7 @@ fn drawSelectorGrid() void {
     c.rl.drawRectangle(currentCellFrontEnd.x_prev, currentCellFrontEnd.y_prev, i32_width, i32_height, c.rl.Color.white);
 
     selector_shape.x = @as(f32, @floatFromInt(currentCellFrontEnd.x));
-    selector_shape.y = @as(f32, @floatFromInt(currentCellFrontEnd.y));
+    selector_shape.y = @as(f32, @floatFromInt(currentCellFrontEnd.y)) + 10;
 
     c.rl.drawRectangleGradientEx(selector_shape, c.rl.Color.gray, c.rl.Color.black, c.rl.Color.black, c.rl.Color.gray);
 }
@@ -147,13 +145,16 @@ fn cellSwitchingFrontend(i: i32, j: i32) void {
 
 fn cellSwitchingBackend(x: u8, y: u8, i: i8, j: i8) void {
     if (BackendgridLocation) |grid| {
-        grid[y][x] = ' ';
+        if (grid[y][x] == 'X') {
+            grid[y][x] = ' ';
+        }
 
         const new_x: u8 = @intCast(@as(i16, x) + i);
         const new_y: u8 = @intCast(@as(i16, y) + j);
 
-        grid[new_y][new_x] = 'X';
-
+        if (grid[new_y][new_x] == ' ') {
+            grid[new_y][new_x] = 'X';
+        }
         currentCellBackEnd.x = new_x;
         currentCellBackEnd.y = new_y;
 
@@ -164,7 +165,56 @@ fn cellSwitchingBackend(x: u8, y: u8, i: i8, j: i8) void {
     }
 }
 
-fn drawFrontEndGrid() void {
+pub fn isIntegerPressed() void {
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
+        integerSettingBackend('1');
+        integerSettingFrontend("1");
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.two)) {
+        integerSettingBackend('2');
+        integerSettingFrontend("2");
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.three)) {
+        integerSettingBackend('3');
+        integerSettingFrontend("3");
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.four)) {
+        integerSettingBackend('4');
+        integerSettingFrontend("4");
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.five)) {
+        integerSettingBackend('5');
+        integerSettingFrontend("5");
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.six)) {
+        integerSettingBackend('6');
+        integerSettingFrontend("6");
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.seven)) {
+        integerSettingBackend('7');
+        integerSettingFrontend("7");
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.eight)) {
+        integerSettingBackend('8');
+        integerSettingFrontend("8");
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.nine)) {
+        integerSettingBackend('9');
+        integerSettingFrontend("9");
+    }
+}
+
+fn integerSettingBackend(integer: u8) void {
+    BackendgridLocation.?.*[currentCellBackEnd.y][currentCellBackEnd.x] = integer;
+}
+
+fn integerSettingFrontend(integer: [:0]const u8) void {
+    FrontendgridLocation.?.*[currentCellBackEnd.x][currentCellBackEnd.y].value = integer;
+}
+
+pub fn drawFrontEndGrid() void {
+    c.rl.clearBackground(c.rl.Color.white);
+
     var x: i32 = init_grid_position.x;
     var y: i32 = init_grid_position.y;
 
@@ -180,23 +230,12 @@ fn drawFrontEndGrid() void {
         c.rl.drawLine(x, y, x_end, y, c.rl.Color.black);
         y += spacement;
     }
-}
-
-pub fn isIntegerPressed() void {
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) integerSetting('1');
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.two)) integerSetting('2');
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.three)) integerSetting('3');
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.four)) integerSetting('4');
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.five)) integerSetting('5');
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.six)) integerSetting('6');
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.seven)) integerSetting('7');
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.eight)) integerSetting('8');
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.nine)) integerSetting('9');
-}
-
-fn integerSetting(integer: u8) void {
-    BackendgridLocation.?.*[currentCellBackEnd.y][currentCellBackEnd.x] = integer;
-    drawBackendGrid();
+    for (0..n) |i| {
+        for (0..n) |j| {
+            c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
+        }
+        c.print("\n", .{});
+    }
 }
 
 pub fn drawBackendGrid() void {
@@ -231,7 +270,6 @@ fn isClickedOnCell() void {
             cursorToTop(mouseY);
             cursorToBottom(mouseY);
 
-            drawFrontEndGrid();
             drawBackendGrid();
         }
     }

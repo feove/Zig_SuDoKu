@@ -1,4 +1,4 @@
-//Here are All of constants
+//Here are All constants
 
 pub const std = @import("std");
 
@@ -7,6 +7,7 @@ pub const print = std.debug.print;
 pub const stdout = std.io.getStdOut().writer();
 
 const sleep = std.time.sleep;
+
 //Files
 pub const w = @import("window.zig");
 pub const g = @import("grid.zig");
