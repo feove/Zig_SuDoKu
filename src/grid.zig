@@ -221,13 +221,21 @@ pub fn drawFrontEndGrid() void {
     const x_end = init_grid_position.x + spacement * n;
     const y_end = init_grid_position.y + spacement * n;
 
-    for (1..n + 2) |_| {
-        c.rl.drawLine(x, y, x, y_end, c.rl.Color.black);
+    for (1..n + 2) |col| {
+        if (col == 1 or col == n + 1 or @mod(col - 1, 3) == 0) {
+            c.rl.drawRectangle(x, y, 3, 9 * spacement, c.rl.Color.black);
+        } else {
+            c.rl.drawLine(x, y, x, y_end, c.rl.Color.black);
+        }
         x += spacement;
     }
     x = init_grid_position.x;
-    for (1..n + 2) |_| {
-        c.rl.drawLine(x, y, x_end, y, c.rl.Color.black);
+    for (1..n + 2) |line| {
+        if (line == 1 or line == n + 1 or @mod(line - 1, 3) == 0) {
+            c.rl.drawRectangle(x, y, 9 * spacement, 3, c.rl.Color.black);
+        } else {
+            c.rl.drawLine(x, y, x_end, y, c.rl.Color.black);
+        }
         y += spacement;
     }
     for (0..n) |i| {
