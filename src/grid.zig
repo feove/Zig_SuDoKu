@@ -22,7 +22,7 @@ const FrontEndCursorLimits = struct {
     x_right: u16 = init_grid_position.x + n * spacement,
 
     y_top: u16 = init_grid_position.y,
-    y_bottom: u16 = init_selector_position.y + n * spacement,
+    y_bottom: u16 = init_selector_position.y + (n - 1) * spacement,
 };
 
 const cursorlimits = FrontEndCursorLimits{};
@@ -215,13 +215,59 @@ pub fn drawBackendGrid() void {
 }
 
 fn isClickedOnCell() void {
-    if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) { // Detect left mouse click
+    if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
         const mousePos = c.rl.getMousePosition();
 
-        // Convert f32 to i32 for better readability
-        const mouseX: i32 = @as(i32, @intFromFloat(mousePos.x));
-        const mouseY: i32 = @as(i32, @intFromFloat(mousePos.y));
+        if (mousePos.x > cursorlimits.x_left and mousePos.x < cursorlimits.x_right and mousePos.y > cursorlimits.y_top and mousePos.y < cursorlimits.y_bottom) {
+            const mouseX: i32 = @as(i32, @intFromFloat(mousePos.x));
+            const mouseY: i32 = @as(i32, @intFromFloat(mousePos.y));
 
-        c.print("Mouse Clicked at: X: {d}, Y: {d}\n", .{ mouseX, mouseY });
+            c.print("Mouse Clicked at: X: {d}, Y: {d}\n", .{ mouseX, mouseY });
+            c.print("Backend: X: {d}, Frontend: Y: {d}\n", .{ currentCellBackEnd.x, currentCellFrontEnd.x });
+
+            cursorToLeft(mouseX);
+            cursorToRight(mouseX);
+
+            cursorToTop(mouseY);
+            cursorToBottom(mouseY);
+
+            drawFrontEndGrid();
+            drawBackendGrid();
+        }
+    }
+}
+
+fn cursorToTop(mouseY: i32) void {
+    if (currentCellFrontEnd.y > mouseY) {
+        while (mouseY + spacement < currentCellFrontEnd.y) {
+            cellSwitchingFrontend(0, -spacement);
+            cellSwitchingBackend(currentCellBackEnd.x, currentCellBackEnd.y, 0, -1);
+        }
+    }
+}
+
+fn cursorToBottom(mouseY: i32) void {
+    if (currentCellFrontEnd.y < mouseY) {
+        while (mouseY - spacement / 2 > currentCellFrontEnd.y) {
+            cellSwitchingFrontend(0, spacement);
+            cellSwitchingBackend(currentCellBackEnd.x, currentCellBackEnd.y, 0, 1);
+        }
+    }
+}
+
+fn cursorToRight(mouseX: i32) void {
+    if (currentCellFrontEnd.x < mouseX) {
+        while (mouseX - spacement > currentCellFrontEnd.x) {
+            cellSwitchingFrontend(spacement, 0);
+            cellSwitchingBackend(currentCellBackEnd.x, currentCellBackEnd.y, 1, 0);
+        }
+    }
+}
+fn cursorToLeft(mouseX: i32) void {
+    if (currentCellFrontEnd.x > mouseX) {
+        while (mouseX + spacement / 2 < currentCellFrontEnd.x) {
+            cellSwitchingFrontend(-spacement, 0);
+            cellSwitchingBackend(currentCellBackEnd.x, currentCellBackEnd.y, -1, 0);
+        }
     }
 }
