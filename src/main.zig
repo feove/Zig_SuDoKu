@@ -2,6 +2,7 @@ const c = @import("constant.zig");
 
 pub const screenWidth = 770;
 pub const screenHeight = 770;
+
 pub fn main() anyerror!void {
     c.rl.initWindow(screenWidth, screenHeight, "SuDoKu Game");
     defer c.rl.closeWindow();
@@ -19,12 +20,11 @@ pub fn main() anyerror!void {
         c.rl.beginDrawing();
         defer c.rl.endDrawing();
 
-        c.g.drawFrontEndGrid();
-
-        c.rl.drawFPS(20, 20);
-
-        c.g.updateCellSelector();
-
-        c.g.isIntegerPressed();
+        switch (c.w.layer) {
+            (c.w.Layer.GameMenuView) => c.w.GameMenuLayer(),
+            (c.w.Layer.EndGameView) => c.w.EndGameLayer(),
+            (c.w.Layer.PlayView) => c.w.PlayLayer(),
+            (c.w.Layer.SettingView) => c.w.SettingLayer(),
+        }
     }
 }

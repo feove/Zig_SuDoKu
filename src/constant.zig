@@ -12,8 +12,10 @@ const sleep = std.time.sleep;
 pub const w = @import("window.zig");
 pub const g = @import("grid.zig");
 pub const m = @import("main.zig");
-
+pub const gm = @import("game_menu.zig");
 pub const rl = @import("raylib");
+pub const s = @import("settings.zig");
+pub const e = @import("end.zig");
 
 pub fn clear() void {
     stdout.writeAll("\x1b[2J\x1b[H") catch {};

@@ -321,3 +321,15 @@ fn cursorToLeft(mouseX: i32) void {
         }
     }
 }
+
+pub fn settingPressed() void {
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.n)) {
+        c.w.layer = c.w.Layer.SettingView;
+    }
+}
+
+pub fn endPressed() void {
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.b)) {
+        c.w.layer = c.w.Layer.EndGameView;
+    }
+}
