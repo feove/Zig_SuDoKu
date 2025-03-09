@@ -16,6 +16,7 @@ pub const gm = @import("game_menu.zig");
 pub const rl = @import("raylib");
 pub const s = @import("settings.zig");
 pub const e = @import("end.zig");
+pub const t = @import("texts.zig");
 
 pub fn clear() void {
     stdout.writeAll("\x1b[2J\x1b[H") catch {};

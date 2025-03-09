@@ -12,14 +12,16 @@ pub var layer = Layer.GameMenuView;
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
 }
-
-pub fn GameMenuLayer() void {
-    c.rl.clearBackground(c.rl.Color.blue);
+pub fn GameMenuLayer() !void {
+    c.rl.clearBackground(c.rl.Color.white);
 
     c.gm.playPressed();
     c.gm.settingsPressed();
 
-    c.rl.drawText("Game Menu", 100, 100, 35, c.rl.Color.white);
+    const dreamFont = try c.t.loadFSuperDreamFont();
+
+    c.t.newText(dreamFont, "SuDoKu", 260, 120, 70, 5, c.rl.Color.black);
+    c.clear();
 }
 
 pub fn SettingLayer() void {

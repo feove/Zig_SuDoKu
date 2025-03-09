@@ -20,11 +20,11 @@ pub fn main() anyerror!void {
         c.rl.beginDrawing();
         defer c.rl.endDrawing();
 
-        switch (c.w.layer) {
+        try switch (c.w.layer) {
             (c.w.Layer.GameMenuView) => c.w.GameMenuLayer(),
             (c.w.Layer.EndGameView) => c.w.EndGameLayer(),
             (c.w.Layer.PlayView) => c.w.PlayLayer(),
             (c.w.Layer.SettingView) => c.w.SettingLayer(),
-        }
+        };
     }
 }
