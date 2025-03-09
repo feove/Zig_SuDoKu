@@ -14,6 +14,8 @@ pub fn main() anyerror!void {
     try c.g.BackendgridInit();
     try c.g.FrontendgridInit();
 
+    try c.t.FontInit();
+
     while (!c.rl.windowShouldClose()) {
         if (c.w.windowHasBeenQuit()) break;
 

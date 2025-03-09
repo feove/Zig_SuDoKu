@@ -18,9 +18,8 @@ pub fn GameMenuLayer() !void {
     c.gm.playPressed();
     c.gm.settingsPressed();
 
-    const dreamFont = try c.t.loadFSuperDreamFont();
-
-    c.t.newText(dreamFont, "SuDoKu", 260, 120, 70, 5, c.rl.Color.black);
+    c.t.newText(c.t.dreamFont_100, "SuDoKu", 220, 100, 100, 5, c.rl.Color.black);
+    c.t.newText(c.t.ProtoNerdFont_Bold_30, "Zig Edition", 300, 205, 30, 0, c.rl.Color.gray);
     c.clear();
 }
 
