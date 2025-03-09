@@ -20,7 +20,12 @@ pub fn GameMenuLayer() !void {
 
     c.t.newText(c.t.dreamFont_100, "SuDoKu", 220, 100, 100, 5, c.rl.Color.black);
     c.t.newText(c.t.ProtoNerdFont_Bold_30, "Zig Edition", 300, 205, 30, 0, c.rl.Color.gray);
-    c.clear();
+
+    c.gm.startButtonPressed();
+
+    c.gm.dropDownButtonPressed();
+
+    //c.clear();
 }
 
 pub fn SettingLayer() void {

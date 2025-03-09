@@ -16,6 +16,8 @@ pub fn main() anyerror!void {
 
     try c.t.FontInit();
 
+    try c.tr.TexturesInit();
+
     while (!c.rl.windowShouldClose()) {
         if (c.w.windowHasBeenQuit()) break;
 
