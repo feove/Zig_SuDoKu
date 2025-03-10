@@ -246,6 +246,8 @@ pub fn drawFrontEndGrid() void {
         }
         y += spacement;
     }
+
+    //Draw Numbers
     for (0..n) |i| {
         for (0..n) |j| {
             c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);

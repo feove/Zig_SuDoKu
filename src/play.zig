@@ -37,17 +37,20 @@ pub fn endPressed() void {
     }
 }
 
-pub fn updateLifeBar() void {
-    var button_x: f32 = 670;
-    const button_y: f32 = 50;
+pub fn TopGridinterface() void {
+    var heart_x: f32 = 670;
+    const heart_y: f32 = 50;
+
+    const settings_x: f32 = 430;
+    const settings_y: f32 = 20;
 
     for (0..start_life_number) |i| {
         if (backendLifeBar[i]) {
-            c.rl.drawTextureEx(c.tr.full_heart, c.rl.Vector2.init(button_x, button_y), 0, 0.4, c.rl.Color.white);
+            c.rl.drawTextureEx(c.tr.full_heart, c.rl.Vector2.init(heart_x, heart_y), 0, 0.4, c.rl.Color.white);
         } else {
-            c.rl.drawTextureEx(c.tr.empty_heart, c.rl.Vector2.init(button_x, button_y), 0, 0.4, c.rl.Color.white);
+            c.rl.drawTextureEx(c.tr.empty_heart, c.rl.Vector2.init(heart_x, heart_y), 0, 0.4, c.rl.Color.white);
         }
-        button_x -= 40;
+        heart_x -= 40;
     }
 
     const text: [:0]const u8 = switch (c.gm.current_texture) {
@@ -60,4 +63,6 @@ pub fn updateLifeBar() void {
 
     //difficulty
     c.t.newText(c.t.ProtoNerdFont_Bold_30, text, 70, 45, 30, 0, c.rl.Color.black);
+
+    c.rl.drawTextureEx(c.tr.settings_button, c.rl.Vector2.init(settings_x, settings_y), 0, 0.150, c.rl.Color.white);
 }

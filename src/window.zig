@@ -56,7 +56,7 @@ pub fn PlayLayer() void {
 
     c.g.isIntegerPressed();
 
-    c.p.updateLifeBar();
+    c.p.TopGridinterface();
 
     c.p.settingPressed();
     c.p.endPressed();
