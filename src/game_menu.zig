@@ -38,11 +38,29 @@ pub fn startButtonPressed() void {
 
 pub fn dropDownButtonPressed() void {
     const button_x: f32 = 255;
-    const button_y: f32 = 430;
-    const button_width: i32 = 250;
-    const button_height: i32 = 70;
+    var button_y: f32 = 430;
+    const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
+    const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
 
-    c.rl.drawRectangle(button_x, button_y, button_width, button_height, c.rl.Color.white);
+    var button_color: c.rl.Color = c.rl.Color.white;
 
-    c.rl.drawRectangleLines(button_x, button_y, button_width, button_height, c.rl.Color.black);
+    const mouse_pos = c.rl.getMousePosition();
+
+    const is_mouse_over = mouse_pos.x >= button_x and mouse_pos.x <= (button_x + button_width) and
+        mouse_pos.y >= button_y and mouse_pos.y <= (button_y + button_height);
+
+    const textures_level_buttons: [4]c.rl.Texture2D = .{
+        c.tr.easy_button,
+        c.tr.normal_button,
+        c.tr.hard_button,
+        c.tr.extreme_button,
+    };
+
+    for (0..1) |i| {
+        if (is_mouse_over) {
+            button_color = c.rl.Color.gray;
+        }
+        c.rl.drawTextureEx(textures_level_buttons[i], c.rl.Vector2.init(button_x, button_y), 0, 0.9, button_color);
+        button_y += 80;
+    }
 }
