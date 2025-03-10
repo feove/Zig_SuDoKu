@@ -36,6 +36,41 @@ pub fn startButtonPressed() void {
     c.rl.drawTextureEx(c.tr.start_button_texture, c.rl.Vector2.init(button_x, button_y), 0, 0.4, button_color);
 }
 
+pub fn levelButton() void {
+    const button_x: f32 = 290;
+    const button_y: f32 = 410;
+
+    const bright_white = c.rl.Color{
+        .r = 255,
+        .g = 255,
+        .b = 255,
+        .a = 255,
+    };
+
+    c.rl.drawTextureEx(c.tr.level_button, c.rl.Vector2.init(button_x, button_y), 0, 1, bright_white);
+}
+
+pub fn doubleArrowsSet() void {
+    const button_x: f32 = 280;
+    const button_y: f32 = 570;
+    const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
+    const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
+
+    var top_arrow_color: c.rl.Color = c.rl.Color.white;
+
+    const mouse_pos = c.rl.getMousePosition();
+
+    const is_mouse_over_top_arrow = mouse_pos.x >= button_x - 50 and mouse_pos.x <= (button_x + button_width - 250) and
+        mouse_pos.y >= button_y - 50 and mouse_pos.y <= (button_y + button_height - 80);
+
+    if (is_mouse_over_top_arrow) {
+        top_arrow_color = c.rl.Color.gray;
+    }
+
+    c.rl.drawTextureEx(c.tr.arrow_clicker, c.rl.Vector2.init(button_x, button_y), 180, 0.4, top_arrow_color);
+    c.rl.drawTextureEx(c.tr.arrow_clicker, c.rl.Vector2.init(button_x - 60, button_y + 10), 0, 0.4, c.rl.Color.white);
+}
+
 pub fn dropDownButtonPressed() void {
     const button_x: f32 = 255;
     var button_y: f32 = 430;

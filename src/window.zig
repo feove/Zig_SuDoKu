@@ -22,8 +22,10 @@ pub fn GameMenuLayer() !void {
     c.t.newText(c.t.ProtoNerdFont_Bold_30, "Zig Edition", 300, 205, 30, 0, c.rl.Color.gray);
 
     c.gm.startButtonPressed();
+    c.gm.levelButton();
 
-    c.gm.dropDownButtonPressed();
+    c.gm.doubleArrowsSet();
+    //c.gm.dropDownButtonPressed();
 
     //c.clear();
 }
