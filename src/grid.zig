@@ -2,8 +2,8 @@ const c = @import("constant.zig");
 
 const spacement = 70;
 
-const init_grid_position: c.rl.Vector2 = c.rl.Vector2.init(70, 70);
-const init_selector_position: c.rl.Vector2 = c.rl.Vector2.init(85, 120); //Left Top Corner
+const init_grid_position: c.rl.Vector2 = c.rl.Vector2.init(70, 90);
+const init_selector_position: c.rl.Vector2 = c.rl.Vector2.init(85, 140); //Left Top Corner
 
 var selector_shape: c.rl.Rectangle = c.rl.Rectangle.init(init_selector_position.x, init_selector_position.y, 40, 5);
 
@@ -227,7 +227,11 @@ pub fn drawFrontEndGrid() void {
 
     for (1..n + 2) |col| {
         if (col == 1 or col == n + 1 or @mod(col - 1, 3) == 0) {
-            c.rl.drawRectangle(x, y, 3, 9 * spacement, c.rl.Color.black);
+            if (col == n + 1) {
+                c.rl.drawRectangle(x, y, 3, 9 * spacement + 3, c.rl.Color.black);
+            } else {
+                c.rl.drawRectangle(x, y, 3, 9 * spacement, c.rl.Color.black);
+            }
         } else {
             c.rl.drawLine(x, y, x, y_end, c.rl.Color.black);
         }
@@ -319,17 +323,5 @@ fn cursorToLeft(mouseX: i32) void {
             cellSwitchingFrontend(-spacement, 0);
             cellSwitchingBackend(currentCellBackEnd.x, currentCellBackEnd.y, -1, 0);
         }
-    }
-}
-
-pub fn settingPressed() void {
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.n)) {
-        c.w.layer = c.w.Layer.SettingView;
-    }
-}
-
-pub fn endPressed() void {
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.b)) {
-        c.w.layer = c.w.Layer.EndGameView;
     }
 }

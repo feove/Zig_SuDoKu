@@ -99,7 +99,7 @@ pub fn doubleArrowsSet() void {
     c.rl.drawTextureEx(c.tr.arrow_clicker, c.rl.Vector2.init(button_x - 60, button_y + 10), 0, bottom_arrow_scale, bottom_arrow_color);
 }
 
-var current_texture: u8 = 2;
+pub var current_texture: u8 = 2;
 
 pub fn dropDownButtonPressed() void {
     const button_x: f32 = 350;

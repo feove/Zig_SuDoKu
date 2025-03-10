@@ -12,6 +12,7 @@ pub var layer = Layer.GameMenuView;
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
 }
+
 pub fn GameMenuLayer() !void {
     c.rl.clearBackground(c.rl.Color.white);
 
@@ -49,12 +50,14 @@ pub fn EndGameLayer() void {
 pub fn PlayLayer() void {
     c.g.drawFrontEndGrid();
 
-    c.rl.drawFPS(20, 20);
+    c.rl.drawFPS(20, 740);
 
     c.g.updateCellSelector();
 
     c.g.isIntegerPressed();
 
-    c.g.settingPressed();
-    c.g.endPressed();
+    c.p.updateLifeBar();
+
+    c.p.settingPressed();
+    c.p.endPressed();
 }

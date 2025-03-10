@@ -8,6 +8,8 @@ pub var number_three: c.rl.Texture2D = undefined;
 pub var number_four: c.rl.Texture2D = undefined;
 pub var number_random: c.rl.Texture2D = undefined;
 pub var arrow_clicker: c.rl.Texture2D = undefined;
+pub var empty_heart: c.rl.Texture2D = undefined;
+pub var full_heart: c.rl.Texture2D = undefined;
 
 pub fn TexturesInit() !void {
     start_button_texture = try c.rl.loadTexture("image/start_button.png");
@@ -19,4 +21,7 @@ pub fn TexturesInit() !void {
     number_four = try c.rl.loadTexture("image/number_four.png");
     number_random = try c.rl.loadTexture("image/random_number.png");
     arrow_clicker = try c.rl.loadTexture("image/arrow.png");
+
+    empty_heart = try c.rl.loadTexture("image/heart_empty.png");
+    full_heart = try c.rl.loadTexture("image/heart_filled.png");
 }
