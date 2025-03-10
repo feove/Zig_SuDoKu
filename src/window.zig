@@ -25,7 +25,7 @@ pub fn GameMenuLayer() !void {
     c.gm.levelButton();
 
     c.gm.doubleArrowsSet();
-    //c.gm.dropDownButtonPressed();
+    c.gm.dropDownButtonPressed();
 
     //c.clear();
 }
