@@ -58,6 +58,5 @@ pub fn PlayLayer() void {
 
     c.p.TopGridinterface();
 
-    c.p.settingPressed();
     c.p.endPressed();
 }

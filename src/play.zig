@@ -12,22 +12,13 @@ fn lifeBarInit() [start_life_number]bool {
     return .{ true, true, true };
 }
 
-pub fn settingPressed() void {
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.n)) {
-        c.w.layer = c.w.Layer.SettingView;
-    }
-
-    //Test
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.m)) {
-        loseLife();
-    }
-}
-
 fn loseLife() void {
     backendLifeBar[current_life] = false;
 
     if (current_life != 0) {
         current_life -= 1;
+    } else {
+        c.w.layer = c.w.Layer.EndGameView;
     }
 }
 
@@ -38,11 +29,27 @@ pub fn endPressed() void {
 }
 
 pub fn TopGridinterface() void {
-    var heart_x: f32 = 670;
-    const heart_y: f32 = 50;
+    var heart_x: f32 = 550;
+    const heart_y: f32 = 40;
 
     const settings_x: f32 = 430;
     const settings_y: f32 = 20;
+    const setting_width: f32 = @as(f32, @floatFromInt(c.tr.settings_button.width)) * 0.4;
+    const setting_height: f32 = @as(f32, @floatFromInt(c.tr.settings_button.height)) * 0.4;
+
+    const mouse_pos = c.rl.getMousePosition();
+
+    const is_mouse_over_settings = mouse_pos.x >= settings_x + 200 and mouse_pos.x <= (settings_x + setting_width + 120) and
+        mouse_pos.y >= settings_y and mouse_pos.y <= (settings_y + setting_height - 80);
+
+    var setting_color: c.rl.Color = c.rl.Color.white;
+
+    if (is_mouse_over_settings) {
+        setting_color = c.rl.Color.gray;
+        if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
+            c.w.layer = c.w.Layer.SettingView;
+        }
+    }
 
     for (0..start_life_number) |i| {
         if (backendLifeBar[i]) {
@@ -64,5 +71,5 @@ pub fn TopGridinterface() void {
     //difficulty
     c.t.newText(c.t.ProtoNerdFont_Bold_30, text, 70, 45, 30, 0, c.rl.Color.black);
 
-    c.rl.drawTextureEx(c.tr.settings_button, c.rl.Vector2.init(settings_x, settings_y), 0, 0.150, c.rl.Color.white);
+    c.rl.drawTextureEx(c.tr.settings_button, c.rl.Vector2.init(settings_x + 210, settings_y), 0, 0.150, setting_color);
 }
