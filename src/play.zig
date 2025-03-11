@@ -4,12 +4,11 @@ const start_life_number: u8 = 3;
 
 var current_life: usize = start_life_number - 1;
 
-pub var backendLifeBar: [start_life_number]bool = lifeBarInit();
+pub var backendLifeBar: [start_life_number]bool = .{ true, true, true };
 
-fn lifeBarInit() [start_life_number]bool {
-
-    //I Will put a Level Condition
-    return .{ true, true, true };
+pub fn GameInit() void {
+    backendLifeBar[1] = if (c.gm.current_texture == 4) false else true;
+    backendLifeBar[2] = if (c.gm.current_texture == 4 or c.gm.current_texture == 3) false else true;
 }
 
 fn loseLife() void {

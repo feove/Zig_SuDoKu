@@ -6,6 +6,7 @@ const init_grid_position: c.rl.Vector2 = c.rl.Vector2.init(70, 90);
 const init_selector_position: c.rl.Vector2 = c.rl.Vector2.init(85, 140); //Left Top Corner
 
 var selector_shape: c.rl.Rectangle = c.rl.Rectangle.init(init_selector_position.x, init_selector_position.y, 40, 5);
+var hiligther_shape: c.rl.Rectangle = c.rl.Rectangle.init(init_selector_position.x, init_grid_position.y - 50, 40, 40);
 
 const Cell = struct {
     x: u16,
@@ -110,7 +111,7 @@ pub fn updateCellSelector() void {
         cellSwitchingFrontend(spacement, 0);
     }
 
-    drawBackendGrid(); //Draw selectorBackend too
+    drawBackendGrid(); //Draw selectorBackend too inside
 
     drawSelectorGrid();
 
@@ -123,9 +124,18 @@ fn drawSelectorGrid() void {
 
     //Clear last selection
     c.rl.drawRectangle(currentCellFrontEnd.x_prev, currentCellFrontEnd.y_prev, i32_width, i32_height, c.rl.Color.white);
+    //c.rl.drawRectangleGradientEx(hiligther_shape, c.rl.Color.white, c.rl.Color.white, c.rl.Color.white, c.rl.Color.white);
 
     selector_shape.x = @as(f32, @floatFromInt(currentCellFrontEnd.x));
     selector_shape.y = @as(f32, @floatFromInt(currentCellFrontEnd.y)) + 10;
+
+    hiligther_shape.x = selector_shape.x;
+    hiligther_shape.y = selector_shape.y - 50;
+
+    //If the current case contain an integer (Didn't workd)
+    //if (BackendgridLocation.?.*[currentCellBackEnd.x][currentCellBackEnd.y] != ' ') {
+    //    c.rl.drawRectangleGradientEx(hiligther_shape, c.rl.Color.gray, c.rl.Color.gray, c.rl.Color.gray, c.rl.Color.gray);
+    //}
 
     c.rl.drawRectangleGradientEx(selector_shape, c.rl.Color.gray, c.rl.Color.black, c.rl.Color.black, c.rl.Color.gray);
 }

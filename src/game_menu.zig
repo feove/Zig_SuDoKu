@@ -30,6 +30,7 @@ pub fn startButtonPressed() void {
 
         if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
             c.w.layer = c.w.Layer.PlayView;
+            c.p.GameInit();
         }
     }
 
