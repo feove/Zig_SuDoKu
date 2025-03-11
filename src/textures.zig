@@ -15,6 +15,7 @@ pub var quit_button: c.rl.Texture2D = undefined;
 pub var resume_button: c.rl.Texture2D = undefined;
 pub var background_setting: c.rl.Texture2D = undefined;
 pub var start_setting_button: c.rl.Texture2D = undefined;
+pub var option_button: c.rl.Texture2D = undefined;
 
 pub fn TexturesInit() !void {
     start_button_texture = try c.rl.loadTexture("image/start_button.png");
@@ -34,6 +35,7 @@ pub fn TexturesInit() !void {
     quit_button = try c.rl.loadTexture("image/quit_button.png");
     resume_button = try c.rl.loadTexture("image/resume_button.png");
     background_setting = try c.rl.loadTexture("image/background_setting.png");
-
     start_setting_button = try c.rl.loadTexture("image/start_setting_button.png");
+
+    option_button = try c.rl.loadTexture("image/option_button.png");
 }
