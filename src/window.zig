@@ -32,15 +32,14 @@ pub fn GameMenuLayer() !void {
 }
 
 pub fn SettingLayer() void {
-    c.rl.clearBackground(c.rl.Color.white);
+    c.s.background_display();
+    c.s.buttons_display();
 
-    c.rl.drawRectangleRounded(c.rl.Rectangle.init(100, 100, 400, 400), 30.0, 50, c.rl.Color.white);
+    c.t.newText(c.t.Espial_Regular_Font, "Settings", 265, 170, 60, 0, c.rl.Color.black);
+
     c.s.isGameMenuPressed();
     c.s.isPlayViewPressed();
 
-    c.s.buttons_display();
-
-    c.t.newText(c.t.Espial_Regular_Font, "Settings", 220, 100, 80, 0, c.rl.Color.black);
     //c.rl.drawText("Setting Layer", 100, 100, 35, c.rl.Color.black);
 }
 

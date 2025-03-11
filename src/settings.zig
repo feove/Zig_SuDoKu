@@ -1,10 +1,11 @@
 const c = @import("constant.zig");
 
+const background_dimensions: c.rl.Rectangle = c.rl.Rectangle.init(100, 100, 400, 400);
+
 const Button = struct {
     texture: c.rl.Texture2D,
     x: f32,
     y: f32,
-    width: f32 = @as(f32, @floatFromInt(texture.width)) * scale,
     scale: f32,
     rotation: f32 = 0,
     color: c.rl.Color = c.rl.Color.white,
@@ -16,18 +17,25 @@ const Button = struct {
     fn isHover(self: *const Button) bool {
         const mouse_position: c.rl.Vector2 = c.rl.getMousePosition();
 
-        if (mouse_position.x >= self.x and mouse_position.y >= self.y and ) {
-            return true;
-        }
+        const width: f32 = @as(f32, @floatFromInt(self.texture.width)) * self.scale;
+        const height: f32 = @as(f32, @floatFromInt(self.texture.height)) * self.scale;
 
-        return false;
+        return mouse_position.x >= self.x and mouse_position.y >= self.y and mouse_position.x <= self.x + width and mouse_position.y <= self.y + height;
+    }
+
+    fn isClicked(self: *const Button) bool {
+        return isHover(self) and c.rl.isMouseButtonPressed(c.rl.MouseButton.left);
     }
 };
 
 var quit_button: Button = undefined;
+var resume_button: Button = undefined;
+var setting_background: Button = undefined;
 
 pub fn initButtons() void {
-    quit_button = Button{ .texture = c.tr.quit_button, .x = 265, .y = 500, .scale = 0.2 };
+    quit_button = Button{ .texture = c.tr.quit_button, .x = 270, .y = 500, .scale = 0.19 };
+    resume_button = Button{ .texture = c.tr.resume_button, .x = 265, .y = 300, .scale = 0.2 };
+    setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
 }
 
 pub fn isPlayViewPressed() void {
@@ -44,5 +52,21 @@ pub fn isGameMenuPressed() void {
 
 pub fn buttons_display() void {
     quit_button.draw();
+    resume_button.draw();
+
+    resume_button.color = if (resume_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
     quit_button.color = if (quit_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+
+    if (quit_button.isClicked()) {
+        c.w.layer = c.w.Layer.GameMenuView;
+    }
+
+    if (resume_button.isClicked()) {
+        c.w.layer = c.w.Layer.PlayView;
+    }
+}
+
+pub fn background_display() void {
+    // c.rl.drawRectangleRoundedLinesEx(background_dimensions, 1.0, 1, 5, c.rl.Color.white);
+    setting_background.draw();
 }
