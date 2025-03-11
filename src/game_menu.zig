@@ -13,7 +13,7 @@ pub fn settingsPressed() void {
 }
 
 pub fn startButtonPressed() void {
-    const button_x: f32 = 255;
+    const button_x: f32 = 245;
     const button_y: f32 = 300;
     const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
     const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
@@ -22,8 +22,8 @@ pub fn startButtonPressed() void {
 
     const mouse_pos = c.rl.getMousePosition();
 
-    const is_mouse_over = mouse_pos.x >= button_x and mouse_pos.x <= (button_x + button_width) and
-        mouse_pos.y >= button_y and mouse_pos.y <= (button_y + button_height);
+    const is_mouse_over = mouse_pos.x >= button_x and mouse_pos.x <= (button_x + button_width - 250) and
+        mouse_pos.y >= button_y and mouse_pos.y <= (button_y + button_height - 90);
 
     if (is_mouse_over) {
         button_color = c.rl.Color.gray;
@@ -34,7 +34,7 @@ pub fn startButtonPressed() void {
         }
     }
 
-    c.rl.drawTextureEx(c.tr.start_button_texture, c.rl.Vector2.init(button_x, button_y), 0, 0.4, button_color);
+    c.rl.drawTextureEx(c.tr.start_button_texture, c.rl.Vector2.init(button_x, button_y), 0, 0.2, button_color);
 }
 
 pub fn levelButton() void {
@@ -54,8 +54,8 @@ pub fn levelButton() void {
 pub fn doubleArrowsSet() void {
     var button_x: f32 = 260;
     const button_y: f32 = 560;
-    const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
-    const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
+    //const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
+    //const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
 
     var top_arrow_color: c.rl.Color = c.rl.Color.white;
     var bottom_arrow_color: c.rl.Color = c.rl.Color.white;
@@ -65,11 +65,11 @@ pub fn doubleArrowsSet() void {
 
     const mouse_pos = c.rl.getMousePosition();
 
-    const is_mouse_over_top_arrow = mouse_pos.x >= button_x - 50 and mouse_pos.x <= (button_x + button_width - 250) and
-        mouse_pos.y >= button_y - 50 and mouse_pos.y <= (button_y + button_height - 80);
+    const is_mouse_over_top_arrow = mouse_pos.x >= button_x - 50 and mouse_pos.x <= (button_x - 10) and
+        mouse_pos.y >= button_y - 70 and mouse_pos.y <= (button_y - 10);
 
-    const is_mouse_over_bottom_arrow = mouse_pos.x >= button_x - 50 and mouse_pos.x <= (button_x + button_width - 250) and
-        mouse_pos.y >= button_y + 5 and mouse_pos.y <= (button_y + button_height - 5);
+    const is_mouse_over_bottom_arrow = mouse_pos.x >= button_x - 50 and mouse_pos.x <= (button_x - 10) and
+        mouse_pos.y >= button_y + 10 and mouse_pos.y <= (button_y + 70);
 
     if (is_mouse_over_top_arrow) {
         top_arrow_color = c.rl.Color.gray;

@@ -11,6 +11,7 @@ pub var arrow_clicker: c.rl.Texture2D = undefined;
 pub var empty_heart: c.rl.Texture2D = undefined;
 pub var full_heart: c.rl.Texture2D = undefined;
 pub var settings_button: c.rl.Texture2D = undefined;
+pub var quit_button: c.rl.Texture2D = undefined;
 
 pub fn TexturesInit() !void {
     start_button_texture = try c.rl.loadTexture("image/start_button.png");
@@ -27,4 +28,5 @@ pub fn TexturesInit() !void {
     full_heart = try c.rl.loadTexture("image/heart_filled.png");
 
     settings_button = try c.rl.loadTexture("image/settings_button.png");
+    quit_button = try c.rl.loadTexture("image/quit_button.png");
 }

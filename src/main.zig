@@ -8,15 +8,17 @@ pub fn main() anyerror!void {
     defer c.rl.closeWindow();
 
     c.rl.setTargetFPS(60);
-
     c.clear();
+    c.rl.clearBackground(c.rl.Color.white);
 
+    //Grid
     try c.g.BackendgridInit();
     try c.g.FrontendgridInit();
-
     try c.t.FontInit();
 
+    //Textures
     try c.tr.TexturesInit();
+    c.s.initButtons();
 
     while (!c.rl.windowShouldClose()) {
         if (c.w.windowHasBeenQuit()) break;
