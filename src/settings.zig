@@ -10,11 +10,11 @@ const Button = struct {
     rotation: f32 = 0,
     color: c.rl.Color = c.rl.Color.white,
 
-    fn draw(self: *const Button) void {
+    pub fn draw(self: *const Button) void {
         c.rl.drawTextureEx(self.texture, c.rl.Vector2.init(self.x, self.y), self.rotation, self.scale, self.color);
     }
 
-    fn isHover(self: *const Button) bool {
+    pub fn isHover(self: *const Button) bool {
         const mouse_position: c.rl.Vector2 = c.rl.getMousePosition();
 
         const width: f32 = @as(f32, @floatFromInt(self.texture.width)) * self.scale;
@@ -23,7 +23,7 @@ const Button = struct {
         return mouse_position.x >= self.x and mouse_position.y >= self.y and mouse_position.x <= self.x + width and mouse_position.y <= self.y + height;
     }
 
-    fn isClicked(self: *const Button) bool {
+    pub fn isClicked(self: *const Button) bool {
         return isHover(self) and c.rl.isMouseButtonPressed(c.rl.MouseButton.left);
     }
 };
@@ -31,11 +31,13 @@ const Button = struct {
 var quit_button: Button = undefined;
 var resume_button: Button = undefined;
 var setting_background: Button = undefined;
+pub var setting_game_menu_button: Button = undefined;
 
 pub fn initButtons() void {
     quit_button = Button{ .texture = c.tr.quit_button, .x = 270, .y = 500, .scale = 0.19 };
     resume_button = Button{ .texture = c.tr.resume_button, .x = 265, .y = 300, .scale = 0.2 };
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
+    setting_game_menu_button = Button{ .texture = c.tr.start_setting_button, .x = 660, .y = 665, .scale = 0.14 };
 }
 
 pub fn isPlayViewPressed() void {
@@ -58,11 +60,17 @@ pub fn buttons_display() void {
     quit_button.color = if (quit_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
 
     if (quit_button.isClicked()) {
+        if (c.w.previous_layer == c.w.Layer.GameMenuView) {
+            c.w.exitWindowByProgram = true;
+            //
+        }
+        c.w.layer = c.w.Layer.PlayView;
         c.w.layer = c.w.Layer.GameMenuView;
     }
 
     if (resume_button.isClicked()) {
-        c.w.layer = c.w.Layer.PlayView;
+        c.w.layer = c.w.previous_layer;
+        c.w.previous_layer = c.w.Layer.SettingView;
     }
 }
 

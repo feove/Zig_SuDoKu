@@ -1,11 +1,15 @@
 const c = @import("constant.zig");
 
+pub var exitWindowByProgram = false;
+
 pub const Layer = enum {
     GameMenuView,
     PlayView,
     SettingView,
     EndGameView,
 };
+
+pub var previous_layer = Layer.GameMenuView;
 
 pub var layer = Layer.GameMenuView;
 
@@ -27,6 +31,8 @@ pub fn GameMenuLayer() !void {
 
     c.gm.doubleArrowsSet();
     c.gm.dropDownButtonPressed();
+
+    c.gm.settingButton();
 
     //c.clear();
 }

@@ -18,6 +18,7 @@ fn loseLife() void {
         current_life -= 1;
     } else {
         c.w.layer = c.w.Layer.EndGameView;
+        c.w.previous_layer = c.w.Layer.PlayView;
     }
 }
 

@@ -20,9 +20,7 @@ pub fn main() anyerror!void {
     try c.tr.TexturesInit();
     c.s.initButtons();
 
-    while (!c.rl.windowShouldClose()) {
-        if (c.w.windowHasBeenQuit()) break;
-
+    while (!c.rl.windowShouldClose() and !c.w.windowHasBeenQuit() and !c.w.exitWindowByProgram) {
         c.rl.beginDrawing();
         defer c.rl.endDrawing();
 

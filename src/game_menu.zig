@@ -2,12 +2,14 @@ const c = @import("constant.zig");
 
 pub fn playPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.s)) {
+        c.w.previous_layer = c.w.Layer.GameMenuView;
         c.w.layer = c.w.Layer.PlayView;
     }
 }
 
 pub fn settingsPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.n)) {
+        c.w.previous_layer = c.w.Layer.GameMenuView;
         c.w.layer = c.w.Layer.SettingView;
     }
 }
@@ -18,7 +20,7 @@ pub fn startButtonPressed() void {
     const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
     const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
 
-    var button_color: c.rl.Color = c.rl.Color.white;
+    var button_color: c.rl.Color = c.rl.Color.white.brightness(100);
 
     const mouse_pos = c.rl.getMousePosition();
 
@@ -30,6 +32,7 @@ pub fn startButtonPressed() void {
 
         if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
             c.w.layer = c.w.Layer.PlayView;
+            c.w.previous_layer = c.w.Layer.PlayView;
             c.p.GameInit();
         }
     }
@@ -105,15 +108,15 @@ pub var current_texture: u8 = 2;
 pub fn dropDownButtonPressed() void {
     const button_x: f32 = 350;
     const button_y: f32 = 530;
-    const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
-    const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
+    //const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
+    //const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
 
     var number_color: c.rl.Color = c.rl.Color.white;
 
     const mouse_pos = c.rl.getMousePosition();
 
-    const is_mouse_over = mouse_pos.x >= button_x and mouse_pos.x <= (button_x + button_width - 210) and
-        mouse_pos.y >= button_y and mouse_pos.y <= (button_y + button_height);
+    const is_mouse_over = mouse_pos.x >= button_x and mouse_pos.x <= (button_x + 50) and
+        mouse_pos.y >= button_y and mouse_pos.y <= (button_y + 60);
 
     var number_scale: f32 = 0.8;
     if (is_mouse_over) {
@@ -130,4 +133,21 @@ pub fn dropDownButtonPressed() void {
     };
 
     c.rl.drawTextureEx(textures_level_buttons[current_texture], c.rl.Vector2.init(button_x, button_y), 0, number_scale, number_color);
+}
+
+pub fn settingButton() void {
+    c.s.setting_game_menu_button.draw();
+
+    if (c.s.setting_game_menu_button.isHover()) {
+        c.s.setting_game_menu_button.color = c.rl.Color.gray;
+        c.s.setting_game_menu_button.scale = 0.15;
+    } else {
+        c.s.setting_game_menu_button.color = c.rl.Color.white;
+        c.s.setting_game_menu_button.scale = 0.14;
+    }
+
+    if (c.s.setting_game_menu_button.isClicked()) {
+        c.w.layer = c.w.Layer.SettingView;
+        c.w.previous_layer = c.w.Layer.GameMenuView;
+    }
 }
