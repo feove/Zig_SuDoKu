@@ -36,25 +36,31 @@ pub fn readSudokuGrids(difficulty: u8) !void {
 
     const root_object = parsed.value.object;
 
-    // Create a mutable iterator to go through the object entries
-    var iter = root_object.iterator(); // Declare it as mutable
+    var count: u32 = 0;
+    var iter = root_object.iterator();
+    while (iter.next()) |_| {
+        count += 1;
+    }
 
-    // If the first key matches "grids_", process it
-    if (iter.next()) |entry| {
-        const key = entry.key_ptr.*;
-        if (c.std.mem.startsWith(u8, key, "grids_")) {
+    if (count == 0) {
+        return error.NoGridsFound;
+    }
+
+    const random_index = getRandomNumber(0, count - 1);
+
+    iter = root_object.iterator();
+    var index: u32 = 0;
+    while (iter.next()) |entry| {
+        if (index == random_index and c.std.mem.startsWith(u8, entry.key_ptr.*, "grids_")) {
             const grid_array = entry.value_ptr.*.array;
 
-            // Process the first grid array that matches the difficulty
             for (grid_array.items) |grid_obj| {
                 const grid_difficulty = grid_obj.object.get("difficulty") orelse continue;
-
                 if (grid_difficulty.integer != difficulty) continue;
 
                 const incomplete_grid = grid_obj.object.get("incomplete_grid") orelse continue;
                 const solved_grid = grid_obj.object.get("solved_grid") orelse continue;
 
-                // Populate the backend grid with the incomplete grid data
                 var row_index: usize = 0;
                 for (incomplete_grid.array.items) |row| {
                     var col_index: usize = 0;
@@ -78,16 +84,16 @@ pub fn readSudokuGrids(difficulty: u8) !void {
                     c.std.debug.print("\n", .{});
                 }
 
-                // Exit after processing the first valid grid
-                return; // No value, just return void
+                return;
             }
         }
+        index += 1;
     }
 
-    // If we reach here, there was no matching grid array
     return error.NoGridsFound;
 }
 
-pub fn main() !void {
-    try readSudokuGrids(1);
+pub fn getRandomNumber(min: u32, max: u32) u32 {
+    var prng = c.std.rand.DefaultPrng.init(@as(u64, @bitCast(c.std.time.milliTimestamp())));
+    return prng.random().intRangeAtMost(u32, min, max);
 }
