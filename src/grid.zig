@@ -154,7 +154,7 @@ pub fn FrontendgridInit() !void {
         for (0..n) |j| {
             var val: u8 = 0;
             if (c.gs.copy_for_backend_and_frontend) |backend| {
-                val = backend[i][j];
+                val = backend[j][i];
             } else {
                 val = 0;
             }

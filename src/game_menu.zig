@@ -57,8 +57,6 @@ pub fn levelButton() void {
 pub fn doubleArrowsSet() void {
     var button_x: f32 = 260;
     const button_y: f32 = 560;
-    //const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
-    //const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;
 
     var top_arrow_color: c.rl.Color = c.rl.Color.white;
     var bottom_arrow_color: c.rl.Color = c.rl.Color.white;
