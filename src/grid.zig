@@ -55,7 +55,7 @@ var gpa = c.std.heap.GeneralPurposeAllocator(.{}){};
 const allocator = gpa.allocator();
 
 const n: usize = 9;
-var BackendgridLocation: ?*[n][n]u8 = null;
+pub var BackendgridLocation: ?*[n][n]u8 = null;
 
 pub fn BackendgridInit() !void {
     var backend_grid = try allocator.create([n][n]u8);
@@ -63,6 +63,7 @@ pub fn BackendgridInit() !void {
     for (0..n) |i| {
         for (0..n) |j| {
             backend_grid[i][j] = ' ';
+            //c.print("{d} ", .{backend_grid[i][j]});
         }
         c.print("\n", .{});
     }

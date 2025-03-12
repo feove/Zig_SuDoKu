@@ -15,6 +15,7 @@ pub fn main() anyerror!void {
     try c.g.BackendgridInit();
     try c.g.FrontendgridInit();
     try c.t.FontInit();
+    try c.gs.readSudokuGrid();
 
     //Textures
     try c.tr.TexturesInit();

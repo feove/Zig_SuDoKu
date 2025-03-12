@@ -36,11 +36,12 @@ var option_button: Button = undefined;
 pub var setting_game_menu_button: Button = undefined;
 
 pub fn initButtons() void {
-    quit_button = Button{ .texture = c.tr.quit_button, .x = 270, .y = 500, .scale = 0.19 };
-    resume_button = Button{ .texture = c.tr.resume_button, .x = 265, .y = 300, .scale = 0.2 };
-    option_button = Button{ .texture = c.tr.option_button, .x = 260, .y = 400, .scale = 0.2 };
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
-    setting_game_menu_button = Button{ .texture = c.tr.start_setting_button, .x = 600, .y = 605, .scale = 0.14 };
+    resume_button = Button{ .texture = c.tr.resume_button, .x = 265, .y = 250, .scale = 0.2 };
+    option_button = Button{ .texture = c.tr.option_button, .x = 260, .y = 355, .scale = 0.2 };
+    quit_button = Button{ .texture = c.tr.quit_button, .x = 270, .y = 450, .scale = 0.19 };
+
+    setting_game_menu_button = Button{ .texture = c.tr.start_setting_button, .x = 650, .y = 660, .scale = 0.14 };
 }
 
 pub fn isPlayViewPressed() void {
