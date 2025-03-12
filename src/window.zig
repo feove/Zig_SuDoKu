@@ -65,6 +65,7 @@ pub fn EndGameLayer() void {
 pub fn PlayLayer() !void {
     if (!GameLaunched) {
         try c.g.BackendgridInit(c.gm.current_texture);
+        try c.g.FrontendgridInit();
         GameLaunched = true;
     }
 

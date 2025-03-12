@@ -129,24 +129,44 @@ pub fn drawFrontEndGrid() void {
         c.print("\n", .{});
     }
 }
+fn intAddToSlice(char: u8) [:0]const u8 {
+    const slice: [:0]const u8 = switch (char) {
+        1 => return "1",
+        2 => return "2",
+        3 => return "3",
+        4 => return "4",
+        5 => return "5",
+        6 => return "6",
+        7 => return "7",
+        8 => return "8",
+        9 => return "9",
+        else => return " ",
+    };
+
+    return slice;
+}
 
 var FrontendgridLocation: ?*[n][n]Cell = null;
 
 pub fn FrontendgridInit() !void {
-    var frontend_grid = try allocator.create([n][n]Cell); // Allocate memory for a 2D array of Cells
-
+    var frontend_grid = try allocator.create([n][n]Cell);
     for (0..n) |i| {
         for (0..n) |j| {
+            var val: u8 = 0;
+            if (c.gs.copy_for_backend_and_frontend) |backend| {
+                val = backend[i][j];
+            } else {
+                val = 0;
+            }
             frontend_grid[i][j] = Cell{
                 .x = @intFromFloat(init_grid_position.x + @as(f32, @floatFromInt(i)) * spacement + 20),
                 .y = @intFromFloat(init_grid_position.y + @as(f32, @floatFromInt(j)) * spacement + 20),
                 .width = spacement - 20,
                 .height = spacement - 20,
-                .value = " ",
+                .value = intAddToSlice(val),
             };
         }
     }
-
     FrontendgridLocation = frontend_grid;
 }
 
