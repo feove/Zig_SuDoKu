@@ -7,6 +7,7 @@ pub const Layer = enum {
     PlayView,
     SettingView,
     EndGameView,
+    OptionView,
 };
 
 pub var previous_layer = Layer.GameMenuView;
@@ -17,6 +18,14 @@ var GameLaunched: bool = false;
 
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
+}
+
+pub fn OptionsLayer() void {
+    c.o.buttons_setup();
+
+    c.t.newText(c.t.Espial_Regular_Font, "Options", 270, 160, 60, 0, c.rl.Color.black);
+
+    c.t.newText(c.t.Espial_Regular_Font, "Controls :", 185, 275, 40, 0, c.rl.Color.black);
 }
 
 pub fn GameMenuLayer() !void {
@@ -85,5 +94,10 @@ pub fn PlayLayer() !void {
 
     try c.p.resetPressed();
 
-    //c.go.isGameOver();
+    //TMP
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.h)) {
+        c.p.loseLife();
+    }
+
+    c.go.isGameOver();
 }

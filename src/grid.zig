@@ -124,9 +124,8 @@ pub fn drawFrontEndGrid() void {
     //Draw Numbers
     for (0..n) |i| {
         for (0..n) |j| {
-            // if (c.go.cellExeption.i_backend != i and c.go.cellExeption.j_backend != j) {
+            //if (c.p.backendLifeBar[2] or (i != c.go.cellExeption.i_backend or j != c.go.cellExeption.j_backend)) {
             c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
-            //}
         }
         c.print("\n", .{});
     }
@@ -310,11 +309,14 @@ pub fn isIntegerPressed() void {
 }
 
 fn integerSettingBackend(integer: u8) void {
-    BackendgridLocation.?.*[currentCellBackEnd.y][currentCellBackEnd.x] = integer;
+    if (BackendgridLocation.?.*[currentCellBackEnd.y][currentCellBackEnd.x] == 0) {
+        BackendgridLocation.?.*[currentCellBackEnd.y][currentCellBackEnd.x] = integer;
+    }
 }
 
 fn integerSettingFrontend(integer: [:0]const u8) void {
-    FrontendgridLocation.?.*[currentCellBackEnd.x][currentCellBackEnd.y].value = integer;
+    if (c.gs.copy_for_backend_and_frontend.?.*[currentCellBackEnd.y][currentCellBackEnd.x] == 0)
+        FrontendgridLocation.?.*[currentCellBackEnd.x][currentCellBackEnd.y].value = integer;
 }
 
 fn isClickedOnCell() void {

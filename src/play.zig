@@ -10,13 +10,13 @@ pub fn GameInit() void {
     current_life = 2;
 
     if (c.gm.current_texture == 4) {
-        backendLifeBar[1] = false;
         backendLifeBar[2] = false;
+        backendLifeBar[1] = false;
         current_life = 0;
     }
 
     if (c.gm.current_texture == 3) {
-        backendLifeBar[1] = false;
+        backendLifeBar[2] = false;
         current_life = 1;
     }
 }

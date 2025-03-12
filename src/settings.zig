@@ -36,6 +36,11 @@ var option_button: Button = undefined;
 
 pub var setting_game_menu_button: Button = undefined;
 pub var reset_button: Button = undefined;
+pub var back_button: Button = undefined;
+pub var pink_right_arrow: Button = undefined;
+pub var blue_left_arrow: Button = undefined;
+pub var blue_top_arrow: Button = undefined;
+pub var pink_bottom_arrow: Button = undefined;
 
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
@@ -45,7 +50,13 @@ pub fn initButtons() void {
 
     setting_game_menu_button = Button{ .texture = c.tr.start_setting_button, .x = 650, .y = 660, .scale = 0.14 };
     reset_button = Button{ .texture = c.tr.reset_button, .x = 580, .y = 30, .scale = 0.15 };
+    back_button = Button{ .texture = c.tr.back_button, .x = 305, .y = 475, .scale = 0.7 };
+    pink_right_arrow = Button{ .texture = c.tr.pink_right_arrow, .x = 522, .y = 270, .scale = 0.5 };
+    blue_left_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 420, .y = 270, .scale = 0.5 };
+    blue_top_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 515, .y = 250, .scale = 0.5, .rotation = 90 };
+    pink_bottom_arrow = Button{ .texture = c.tr.pink_right_arrow, .x = 515, .y = 305, .scale = 0.5, .rotation = 90 };
 }
+
 pub fn isPlayViewPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.v)) {
         c.w.layer = c.w.Layer.PlayView;
@@ -74,14 +85,17 @@ pub fn buttons_display() void {
     if (quit_button.isClicked()) {
         if (c.w.previous_layer == c.w.Layer.GameMenuView) {
             c.w.exitWindowByProgram = true;
-            //
         }
-        c.w.layer = c.w.Layer.PlayView;
-        c.w.layer = c.w.Layer.GameMenuView;
+        if (c.w.previous_layer == c.w.Layer.PlayView) {
+            c.w.layer = c.w.Layer.GameMenuView;
+        }
     }
 
     if (resume_button.isClicked()) {
         c.w.layer = c.w.previous_layer;
-        c.w.previous_layer = c.w.Layer.SettingView;
+    }
+
+    if (option_button.isClicked()) {
+        c.w.layer = c.w.Layer.OptionView;
     }
 }
