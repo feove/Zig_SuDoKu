@@ -12,8 +12,7 @@ pub fn main() anyerror!void {
     c.rl.clearBackground(c.rl.Color.white);
 
     //Grid
-    try c.gs.readSudokuGrids(1);
-    try c.g.BackendgridInit();
+
     try c.g.FrontendgridInit();
     try c.t.FontInit();
 

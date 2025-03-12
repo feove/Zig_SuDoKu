@@ -13,11 +13,17 @@ pub var previous_layer = Layer.GameMenuView;
 
 pub var layer = Layer.GameMenuView;
 
+var GameLaunched: bool = false;
+
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
 }
 
 pub fn GameMenuLayer() !void {
+    if (GameLaunched) {
+        GameLaunched = false;
+    }
+
     c.rl.clearBackground(c.rl.Color.white);
 
     c.gm.playPressed();
@@ -56,7 +62,12 @@ pub fn EndGameLayer() void {
     c.rl.drawText("End", 100, 100, 35, c.rl.Color.black);
 }
 
-pub fn PlayLayer() void {
+pub fn PlayLayer() !void {
+    if (!GameLaunched) {
+        try c.g.BackendgridInit(c.gm.current_texture);
+        GameLaunched = true;
+    }
+
     c.g.drawFrontEndGrid();
 
     c.rl.drawFPS(20, 740);

@@ -2,7 +2,7 @@
     "grids_1": [
       {
        
-        "difficulty": 1,
+        "difficulty": 4,
         "incomplete_grid": [
           [4, 0, 0, 0, 7, 0, 0, 0, 0],
           [0, 0, 0, 1, 9, 5, 0, 0, 0],

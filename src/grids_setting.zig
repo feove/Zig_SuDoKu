@@ -10,13 +10,13 @@ pub fn readSudokuGrids(difficulty: u8) !void {
     copy_for_backend_and_frontend = try allocator.create([9][9]u8);
 
     const filenames = [_][]const u8{
+        "", // 0 is ignored
         "src/data/easy_grids.json",
         "src/data/normal_grids.json",
         "src/data/difficult_grids.json",
         "src/data/extreme_grids.json",
     };
 
-    // Validate difficulty range (1-4)
     if (difficulty < 1 or difficulty > 4) {
         c.std.debug.print("Invalid difficulty level: {d}\n", .{difficulty});
         return;

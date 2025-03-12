@@ -57,8 +57,10 @@ const allocator = gpa.allocator();
 const n: usize = 9;
 pub var BackendgridLocation: ?*[n][n]u8 = null;
 
-pub fn BackendgridInit() !void {
+pub fn BackendgridInit(difficulty: u8) !void {
     const backend_grid = try allocator.create([n][n]u8);
+
+    try c.gs.readSudokuGrids(difficulty);
 
     for (0..n) |i| {
         for (0..n) |j| {
