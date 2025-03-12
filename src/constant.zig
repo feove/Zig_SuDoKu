@@ -20,6 +20,7 @@ pub const t = @import("texts.zig");
 pub const tr = @import("textures.zig");
 pub const p = @import("play.zig");
 pub const gs = @import("grids_setting.zig");
+pub const go = @import("game_over.zig");
 
 pub fn clear() void {
     stdout.writeAll("\x1b[2J\x1b[H") catch {};

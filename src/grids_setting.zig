@@ -78,9 +78,11 @@ pub fn readSudokuGrids(difficulty: u8) !void {
                 for (solved_grid.array.items) |row| {
                     var col_i: usize = 0;
                     for (row.array.items) |cell| {
-                        c.std.debug.print("{d}[{d}][{d}] ", .{ cell.integer, row_index, col_i });
+                        solution_grid.?.*[row_index][col_i] = @intCast(cell.integer);
+                        c.std.debug.print("{d} ", .{solution_grid.?.*[row_index][col_i]});
                         col_i += 1;
                     }
+                    row_index += 1;
                     c.std.debug.print("\n", .{});
                 }
 
@@ -96,4 +98,8 @@ pub fn readSudokuGrids(difficulty: u8) !void {
 pub fn getRandomNumber(min: u32, max: u32) u32 {
     var prng = c.std.rand.DefaultPrng.init(@as(u64, @bitCast(c.std.time.milliTimestamp())));
     return prng.random().intRangeAtMost(u32, min, max);
+}
+
+pub fn main() !void {
+    try readSudokuGrids(2);
 }

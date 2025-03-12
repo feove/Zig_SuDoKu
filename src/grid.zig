@@ -1,6 +1,6 @@
 const c = @import("constant.zig");
 
-const spacement = 70;
+pub const spacement = 70;
 
 const init_grid_position: c.rl.Vector2 = c.rl.Vector2.init(70, 90);
 const init_selector_position: c.rl.Vector2 = c.rl.Vector2.init(85, 140); //Left Top Corner
@@ -124,7 +124,9 @@ pub fn drawFrontEndGrid() void {
     //Draw Numbers
     for (0..n) |i| {
         for (0..n) |j| {
+            // if (c.go.cellExeption.i_backend != i and c.go.cellExeption.j_backend != j) {
             c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
+            //}
         }
         c.print("\n", .{});
     }
@@ -148,7 +150,7 @@ fn intAddToSlice(char: u8) [:0]const u8 {
     return slice;
 }
 
-var FrontendgridLocation: ?*[n][n]Cell = null;
+pub var FrontendgridLocation: ?*[n][n]Cell = null;
 
 pub fn FrontendgridInit() !void {
     var frontend_grid = try allocator.create([n][n]Cell);
@@ -254,9 +256,6 @@ fn cellSwitchingBackend(x: u8, y: u8, i: i8, j: i8) void {
         const new_x: u8 = @intCast(@as(i16, x) + i);
         const new_y: u8 = @intCast(@as(i16, y) + j);
 
-        if (grid[new_y][new_x] == 0) {
-            grid[new_y][new_x] = 'X';
-        }
         currentCellBackEnd.x = new_x;
         currentCellBackEnd.y = new_y;
 

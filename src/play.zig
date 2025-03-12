@@ -1,17 +1,25 @@
 const c = @import("constant.zig");
 
-const start_life_number: u8 = 3;
+pub var start_life_number: u8 = 3;
 
 var current_life: usize = start_life_number - 1;
 
-pub var backendLifeBar: [start_life_number]bool = .{ true, true, true };
+pub var backendLifeBar: [3]bool = .{ true, true, true };
 
 pub fn GameInit() void {
-    backendLifeBar[1] = if (c.gm.current_texture == 4) false else true;
-    backendLifeBar[2] = if (c.gm.current_texture == 4 or c.gm.current_texture == 3) false else true;
+    if (c.gm.current_texture == 4) {
+        backendLifeBar[2] = false;
+        backendLifeBar[1] = false;
+        start_life_number = 1;
+    }
+
+    if (c.gm.current_texture == 3) {
+        backendLifeBar[1] = false;
+        start_life_number = 2;
+    }
 }
 
-fn loseLife() void {
+pub fn loseLife() void {
     backendLifeBar[current_life] = false;
 
     if (current_life != 0) {
