@@ -79,5 +79,9 @@ pub fn PlayLayer() !void {
 
     c.p.TopGridinterface();
 
+    try c.p.settingsOrResetButtons();
+
     c.p.endPressed();
+
+    try c.p.resetPressed();
 }

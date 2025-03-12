@@ -28,12 +28,14 @@ const Button = struct {
     }
 };
 
+//Initialization of buttons
 var quit_button: Button = undefined;
 var resume_button: Button = undefined;
 var setting_background: Button = undefined;
 var option_button: Button = undefined;
 
 pub var setting_game_menu_button: Button = undefined;
+pub var reset_button: Button = undefined;
 
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
@@ -42,8 +44,8 @@ pub fn initButtons() void {
     quit_button = Button{ .texture = c.tr.quit_button, .x = 270, .y = 450, .scale = 0.19 };
 
     setting_game_menu_button = Button{ .texture = c.tr.start_setting_button, .x = 650, .y = 660, .scale = 0.14 };
+    reset_button = Button{ .texture = c.tr.reset_button, .x = 580, .y = 30, .scale = 0.15 };
 }
-
 pub fn isPlayViewPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.v)) {
         c.w.layer = c.w.Layer.PlayView;

@@ -28,12 +28,27 @@ pub fn endPressed() void {
     }
 }
 
-pub fn TopGridinterface() void {
-    var heart_x: f32 = 550;
-    const heart_y: f32 = 40;
+pub fn resetPressed() !void {
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.r)) {
+        try c.g.gridReset();
+    }
+}
+
+pub fn settingsOrResetButtons() !void {
+    c.s.reset_button.draw();
+    c.s.reset_button.color = c.rl.Color.white;
+    c.s.reset_button.scale = 0.15;
+    if (c.s.reset_button.isHover()) {
+        c.s.reset_button.color = c.rl.Color.gray;
+        c.s.reset_button.scale = 0.156;
+    }
+
+    if (c.s.reset_button.isClicked()) {
+        try c.g.gridReset();
+    }
 
     const settings_x: f32 = 430;
-    const settings_y: f32 = 20;
+    const settings_y: f32 = 30;
     const setting_width: f32 = @as(f32, @floatFromInt(c.tr.settings_button.width)) * 0.4;
     const setting_height: f32 = @as(f32, @floatFromInt(c.tr.settings_button.height)) * 0.4;
 
@@ -43,13 +58,22 @@ pub fn TopGridinterface() void {
         mouse_pos.y >= settings_y and mouse_pos.y <= (settings_y + setting_height - 80);
 
     var setting_color: c.rl.Color = c.rl.Color.white;
+    var setting_scale: f32 = 0.15;
 
     if (is_mouse_over_settings) {
         setting_color = c.rl.Color.gray;
+        setting_scale = 0.156;
         if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
             c.w.layer = c.w.Layer.SettingView;
         }
     }
+
+    c.rl.drawTextureEx(c.tr.settings_button, c.rl.Vector2.init(settings_x + 210, settings_y), 0, setting_scale, setting_color);
+}
+
+pub fn TopGridinterface() void {
+    var heart_x: f32 = 500;
+    const heart_y: f32 = 40;
 
     for (0..start_life_number) |i| {
         if (backendLifeBar[i]) {
@@ -70,6 +94,4 @@ pub fn TopGridinterface() void {
 
     //difficulty
     c.t.newText(c.t.ProtoNerdFont_Bold_30, text, 70, 45, 30, 0, c.rl.Color.black);
-
-    c.rl.drawTextureEx(c.tr.settings_button, c.rl.Vector2.init(settings_x + 210, settings_y), 0, 0.150, setting_color);
 }

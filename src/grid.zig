@@ -129,6 +129,8 @@ pub fn drawFrontEndGrid() void {
         c.print("\n", .{});
     }
 }
+
+//cuz clc
 fn intAddToSlice(char: u8) [:0]const u8 {
     const slice: [:0]const u8 = switch (char) {
         1 => return "1",
@@ -168,6 +170,16 @@ pub fn FrontendgridInit() !void {
         }
     }
     FrontendgridLocation = frontend_grid;
+}
+
+pub fn gridReset() !void {
+    for (0..n) |i| {
+        for (0..n) |j| {
+            BackendgridLocation.?.*[i][j] = c.gs.copy_for_backend_and_frontend.?.*[i][j];
+        }
+    }
+
+    try FrontendgridInit();
 }
 
 pub fn updateCellSelector() void {
