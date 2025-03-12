@@ -58,17 +58,74 @@ const n: usize = 9;
 pub var BackendgridLocation: ?*[n][n]u8 = null;
 
 pub fn BackendgridInit() !void {
-    var backend_grid = try allocator.create([n][n]u8);
+    const backend_grid = try allocator.create([n][n]u8);
 
     for (0..n) |i| {
         for (0..n) |j| {
-            backend_grid[i][j] = ' ';
-            //c.print("{d} ", .{backend_grid[i][j]});
+            backend_grid[i][j] = c.gs.copy_for_backend_and_frontend.?.*[i][j];
         }
-        c.print("\n", .{});
     }
 
     BackendgridLocation = backend_grid;
+}
+
+pub fn drawBackendGrid() void {
+    c.clear();
+
+    for (0..n) |i| {
+        for (0..n) |j| {
+            if (BackendgridLocation.?.*[i][j] >= 0 and BackendgridLocation.?.*[i][j] <= 9) {
+                c.print("[{d}]", .{BackendgridLocation.?.*[i][j]});
+            } else {
+                c.print("[X]", .{});
+            }
+        }
+        c.print("\n", .{});
+    }
+    c.print("\n" ** 3, .{});
+    c.print(" Backend :\n X : {d}\n Y : {d}\n", .{ currentCellBackEnd.x, currentCellBackEnd.y });
+    c.print("\n Frontend :\n X : {d}\n Y : {d}\n", .{ currentCellFrontEnd.x, currentCellFrontEnd.y });
+    c.print("\n" ** 3, .{});
+}
+
+pub fn drawFrontEndGrid() void {
+    c.rl.clearBackground(c.rl.Color.white);
+
+    var x: i32 = init_grid_position.x;
+    var y: i32 = init_grid_position.y;
+
+    const x_end = init_grid_position.x + spacement * n;
+    const y_end = init_grid_position.y + spacement * n;
+
+    for (1..n + 2) |col| {
+        if (col == 1 or col == n + 1 or @mod(col - 1, 3) == 0) {
+            if (col == n + 1) {
+                c.rl.drawRectangle(x, y, 3, 9 * spacement + 3, c.rl.Color.black);
+            } else {
+                c.rl.drawRectangle(x, y, 3, 9 * spacement, c.rl.Color.black);
+            }
+        } else {
+            c.rl.drawLine(x, y, x, y_end, c.rl.Color.black);
+        }
+        x += spacement;
+    }
+    x = init_grid_position.x;
+    for (1..n + 2) |line| {
+        if (line == 1 or line == n + 1 or @mod(line - 1, 3) == 0) {
+            c.rl.drawRectangle(x, y, 9 * spacement, 3, c.rl.Color.black);
+        } else {
+            c.rl.drawLine(x, y, x_end, y, c.rl.Color.black);
+        }
+        y += spacement;
+    }
+
+    //Draw Numbers
+    for (0..n) |i| {
+        for (0..n) |j| {
+            c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
+        }
+        c.print("\n", .{});
+    }
 }
 
 var FrontendgridLocation: ?*[n][n]Cell = null;
@@ -157,13 +214,13 @@ fn cellSwitchingFrontend(i: i32, j: i32) void {
 fn cellSwitchingBackend(x: u8, y: u8, i: i8, j: i8) void {
     if (BackendgridLocation) |grid| {
         if (grid[y][x] == 'X') {
-            grid[y][x] = ' ';
+            grid[y][x] = 0;
         }
 
         const new_x: u8 = @intCast(@as(i16, x) + i);
         const new_y: u8 = @intCast(@as(i16, y) + j);
 
-        if (grid[new_y][new_x] == ' ') {
+        if (grid[new_y][new_x] == 0) {
             grid[new_y][new_x] = 'X';
         }
         currentCellBackEnd.x = new_x;
@@ -178,43 +235,43 @@ fn cellSwitchingBackend(x: u8, y: u8, i: i8, j: i8) void {
 
 pub fn isIntegerPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.backspace)) {
-        integerSettingBackend(' ');
+        integerSettingBackend(0);
         integerSettingFrontend(" ");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
-        integerSettingBackend('1');
+        integerSettingBackend(1);
         integerSettingFrontend("1");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.two)) {
-        integerSettingBackend('2');
+        integerSettingBackend(2);
         integerSettingFrontend("2");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.three)) {
-        integerSettingBackend('3');
+        integerSettingBackend(3);
         integerSettingFrontend("3");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.four)) {
-        integerSettingBackend('4');
+        integerSettingBackend(4);
         integerSettingFrontend("4");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.five)) {
-        integerSettingBackend('5');
+        integerSettingBackend(5);
         integerSettingFrontend("5");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.six)) {
-        integerSettingBackend('6');
+        integerSettingBackend(6);
         integerSettingFrontend("6");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.seven)) {
-        integerSettingBackend('7');
+        integerSettingBackend(7);
         integerSettingFrontend("7");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.eight)) {
-        integerSettingBackend('8');
+        integerSettingBackend(8);
         integerSettingFrontend("8");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.nine)) {
-        integerSettingBackend('9');
+        integerSettingBackend(9);
         integerSettingFrontend("9");
     }
 }
@@ -225,61 +282,6 @@ fn integerSettingBackend(integer: u8) void {
 
 fn integerSettingFrontend(integer: [:0]const u8) void {
     FrontendgridLocation.?.*[currentCellBackEnd.x][currentCellBackEnd.y].value = integer;
-}
-
-pub fn drawFrontEndGrid() void {
-    c.rl.clearBackground(c.rl.Color.white);
-
-    var x: i32 = init_grid_position.x;
-    var y: i32 = init_grid_position.y;
-
-    const x_end = init_grid_position.x + spacement * n;
-    const y_end = init_grid_position.y + spacement * n;
-
-    for (1..n + 2) |col| {
-        if (col == 1 or col == n + 1 or @mod(col - 1, 3) == 0) {
-            if (col == n + 1) {
-                c.rl.drawRectangle(x, y, 3, 9 * spacement + 3, c.rl.Color.black);
-            } else {
-                c.rl.drawRectangle(x, y, 3, 9 * spacement, c.rl.Color.black);
-            }
-        } else {
-            c.rl.drawLine(x, y, x, y_end, c.rl.Color.black);
-        }
-        x += spacement;
-    }
-    x = init_grid_position.x;
-    for (1..n + 2) |line| {
-        if (line == 1 or line == n + 1 or @mod(line - 1, 3) == 0) {
-            c.rl.drawRectangle(x, y, 9 * spacement, 3, c.rl.Color.black);
-        } else {
-            c.rl.drawLine(x, y, x_end, y, c.rl.Color.black);
-        }
-        y += spacement;
-    }
-
-    //Draw Numbers
-    for (0..n) |i| {
-        for (0..n) |j| {
-            c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
-        }
-        c.print("\n", .{});
-    }
-}
-
-pub fn drawBackendGrid() void {
-    c.clear();
-
-    for (0..n) |i| {
-        for (0..n) |j| {
-            c.print("[{c}]", .{BackendgridLocation.?.*[i][j]});
-        }
-        c.print("\n", .{});
-    }
-    c.print("\n" ** 3, .{});
-    c.print(" Backend :\n X : {d}\n Y : {d}\n", .{ currentCellBackEnd.x, currentCellBackEnd.y });
-    c.print("\n Frontend :\n X : {d}\n Y : {d}\n", .{ currentCellFrontEnd.x, currentCellFrontEnd.y });
-    c.print("\n" ** 3, .{});
 }
 
 fn isClickedOnCell() void {
