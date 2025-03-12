@@ -85,5 +85,5 @@ pub fn PlayLayer() !void {
 
     try c.p.resetPressed();
 
-    c.go.isGameOver();
+    //c.go.isGameOver();
 }

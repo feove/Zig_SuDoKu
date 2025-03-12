@@ -8,13 +8,15 @@ pub var cellExeption: CellExeption = CellExeption{ .i_backend = 0, .j_backend = 
 const c = @import("constant.zig");
 
 pub fn isGameOver() void {
+    const current_integer: u8 = c.g.BackendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.x];
+
+    c.print("{d} ", .{current_integer});
+
     for (0..9) |i| {
         for (0..9) |j| {
-            const current_integer: u8 = c.g.BackendgridLocation.?.*[i][j];
-
             if (current_integer != 0 and current_integer != c.gs.solution_grid.?.*[i][j]) {
                 c.p.loseLife();
-                c.g.BackendgridLocation.?.*[i][j] = 0;
+                c.g.BackendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.x] = 0;
                 cellExeption = CellExeption{ .i_backend = @as(usize, i), .j_backend = @as(usize, j) };
             }
         }

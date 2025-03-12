@@ -48,7 +48,7 @@ const CurrentCellBackend = struct {
     on_bottom: bool = false,
 };
 
-var currentCellBackEnd = CurrentCellBackend{};
+pub var currentCellBackEnd = CurrentCellBackend{};
 var currentCellFrontEnd = CurrentCellFrontEnd{};
 
 var gpa = c.std.heap.GeneralPurposeAllocator(.{}){};

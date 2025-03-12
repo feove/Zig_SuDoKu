@@ -104,7 +104,7 @@ pub fn doubleArrowsSet() void {
 pub var current_texture: u8 = 2;
 
 pub fn dropDownButtonPressed() void {
-    const button_x: f32 = 350;
+    const button_x: f32 = 355;
     const button_y: f32 = 530;
     //const button_width: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.width)) * 0.4;
     //const button_height: f32 = @as(f32, @floatFromInt(c.tr.start_button_texture.height)) * 0.4;

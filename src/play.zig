@@ -1,33 +1,37 @@
 const c = @import("constant.zig");
 
-pub var start_life_number: u8 = 3;
-
-var current_life: usize = start_life_number - 1;
+var current_life: usize = 2;
 
 pub var backendLifeBar: [3]bool = .{ true, true, true };
 
 pub fn GameInit() void {
+    backendLifeBar = .{ true, true, true };
+
+    current_life = 2;
+
     if (c.gm.current_texture == 4) {
-        backendLifeBar[2] = false;
         backendLifeBar[1] = false;
-        start_life_number = 1;
+        backendLifeBar[2] = false;
+        current_life = 0;
     }
 
     if (c.gm.current_texture == 3) {
         backendLifeBar[1] = false;
-        start_life_number = 2;
+        current_life = 1;
     }
 }
 
 pub fn loseLife() void {
-    backendLifeBar[current_life] = false;
-
-    if (current_life != 0) {
-        current_life -= 1;
-    } else {
+    if (current_life == 0) {
+        backendLifeBar[0] = false;
+        //  c.wait(2);
         c.w.layer = c.w.Layer.EndGameView;
         c.w.previous_layer = c.w.Layer.PlayView;
+        return;
     }
+
+    backendLifeBar[current_life] = false;
+    current_life -= 1;
 }
 
 pub fn endPressed() void {
@@ -83,7 +87,7 @@ pub fn TopGridinterface() void {
     var heart_x: f32 = 500;
     const heart_y: f32 = 40;
 
-    for (0..start_life_number) |i| {
+    for (0..3) |i| {
         if (backendLifeBar[i]) {
             c.rl.drawTextureEx(c.tr.full_heart, c.rl.Vector2.init(heart_x, heart_y), 0, 0.4, c.rl.Color.white);
         } else {
