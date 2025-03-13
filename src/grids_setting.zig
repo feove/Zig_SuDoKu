@@ -17,8 +17,9 @@ pub fn readSudokuGrids(difficulty: u8) !void {
         "src/data/difficult_grids.json",
         "src/data/extreme_grids.json",
     };
+    const pathway_index: usize = if (difficulty == 0) @intCast(getRandomNumber(1, 4)) else @intCast(difficulty);
 
-    const filename = filenames[difficulty];
+    const filename = filenames[pathway_index];
 
     // Open the JSON file
     var file = try c.std.fs.cwd().openFile(filename, .{});
@@ -55,9 +56,6 @@ pub fn readSudokuGrids(difficulty: u8) !void {
             const grid_array = entry.value_ptr.*.array;
 
             for (grid_array.items) |grid_obj| {
-                const grid_difficulty = grid_obj.object.get("difficulty") orelse continue;
-                if (grid_difficulty.integer != difficulty) continue;
-
                 const incomplete_grid = grid_obj.object.get("incomplete_grid") orelse continue;
                 const solved_grid = grid_obj.object.get("solved_grid") orelse continue;
 

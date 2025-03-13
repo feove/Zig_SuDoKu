@@ -13,6 +13,7 @@ pub fn isGameOver() void {
     if (current_integer != 0 and current_integer != c.gs.solution_grid.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x]) {
         c.g.BackendgridLocation.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x] = 0;
         c.p.loseLife();
+
         //cellExeption = CellExeption{ .i_backend = @as(usize, c.g.currentCellBackEnd.y), .j_backend = @as(usize, c.g.currentCellBackEnd.x) };
         //paintInRedWrongCell(c.g.currentCellBackEnd.y, c.g.currentCellBackEnd.x);
     }

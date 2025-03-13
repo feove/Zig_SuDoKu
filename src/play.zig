@@ -26,7 +26,7 @@ pub fn loseLife() void {
         backendLifeBar[0] = false;
         //  c.wait(2);
         c.w.layer = c.w.Layer.EndGameView;
-        c.w.previous_layer = c.w.Layer.PlayView;
+
         return;
     }
 
