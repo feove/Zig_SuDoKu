@@ -49,8 +49,6 @@ pub fn GameMenuLayer() !void {
     c.gm.dropDownButtonPressed();
 
     c.gm.settingButton();
-
-    //c.clear();
 }
 
 pub fn SettingLayer() void {
@@ -61,19 +59,21 @@ pub fn SettingLayer() void {
 
     c.s.isGameMenuPressed();
     c.s.isPlayViewPressed();
-
-    //c.rl.drawText("Setting Layer", 100, 100, 35, c.rl.Color.black);
 }
 
-pub fn EndGameLayer() void {
-    if (CanGameOver) {
-        c.wait(1);
-        CanGameOver = false;
+pub fn EndGameLayer() !void {
+    //c.rl.clearBackground(c.rl.Color.yellow);
+
+    if (c.w.CanGameOver) {
+        c.wait(2);
+        c.w.CanGameOver = false;
     }
-    c.rl.clearBackground(c.rl.Color.yellow);
     c.e.isGameMenuPressed();
 
-    c.rl.drawText("End", 100, 100, 35, c.rl.Color.black);
+    c.e.imageDisplay();
+
+    try c.e.yes_or_no_areas();
+    //c.rl.drawText("End", 100, 100, 35, c.rl.Color.black);
 }
 
 pub fn PlayLayer() !void {

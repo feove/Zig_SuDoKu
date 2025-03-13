@@ -26,6 +26,7 @@ pub fn loseLife() void {
         backendLifeBar[0] = false;
 
         c.w.layer = c.w.Layer.EndGameView;
+        TopGridinterface();
         c.g.drawFrontEndGrid();
         c.go.paintInRedWrongCell(c.g.currentCellBackEnd.y, c.g.currentCellBackEnd.x);
 

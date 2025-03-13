@@ -41,6 +41,7 @@ pub var pink_right_arrow: Button = undefined;
 pub var blue_left_arrow: Button = undefined;
 pub var blue_top_arrow: Button = undefined;
 pub var pink_bottom_arrow: Button = undefined;
+pub var game_over_image: Button = undefined;
 
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
@@ -55,6 +56,7 @@ pub fn initButtons() void {
     blue_left_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 420, .y = 270, .scale = 0.5 };
     blue_top_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 515, .y = 250, .scale = 0.5, .rotation = 90 };
     pink_bottom_arrow = Button{ .texture = c.tr.pink_right_arrow, .x = 515, .y = 305, .scale = 0.5, .rotation = 90 };
+    game_over_image = Button{ .texture = c.tr.game_over, .x = 70, .y = 200, .scale = 0.73 };
 }
 
 pub fn isPlayViewPressed() void {

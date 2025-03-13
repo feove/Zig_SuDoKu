@@ -37,6 +37,8 @@ pub fn paintInRedWrongCell(j: usize, i: usize) void {
     const width: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].width));
     const height: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].height - 5));
 
+    c.rl.drawRectangle(c.g.FrontendgridLocation.?.*[i][j].x - 10, c.g.FrontendgridLocation.?.*[i][j].y - 10, c.g.FrontendgridLocation.?.*[i][j].width, c.g.FrontendgridLocation.?.*[i][j].height - 5, c.rl.Color.white);
+
     const softRed: c.rl.Color = c.rl.Color{ .r = 220, .g = 80, .b = 80, .a = 150 };
     const gradientDarkRed: c.rl.Color = c.rl.Color{ .r = 180, .g = 50, .b = 50, .a = 180 };
 
