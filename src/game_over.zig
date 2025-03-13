@@ -17,9 +17,16 @@ pub fn isGameOver() void {
             } else {
                 cellExceptions.?.*[1] = CellExeption{ .i_backend = c.g.currentCellBackEnd.x, .j_backend = c.g.currentCellBackEnd.y, .defined = true };
             }
-            //cellExeptions = CellExeption{ .i_backend = c.g.currentCellBackEnd.x, .j_backend = c.g.currentCellBackEnd.y };
 
             c.g.BackendgridLocation.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x] = 0;
+        } else {
+            c.gs.copy_for_backend_and_frontend.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x] = current_integer;
+
+            const was_first_error: bool = cellExceptions.?.*[0].i_backend == c.g.currentCellBackEnd.x and cellExceptions.?.*[0].j_backend == c.g.currentCellBackEnd.y;
+
+            if (was_first_error) {
+                cellExceptions.?.*[0].defined = false;
+            }
         }
     }
 }
@@ -30,11 +37,15 @@ pub fn paintInRedWrongCell(j: usize, i: usize) void {
     const width: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].width));
     const height: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].height - 5));
 
-    const color: c.rl.Color = c.rl.Color.red;
+    const softRed: c.rl.Color = c.rl.Color{ .r = 220, .g = 80, .b = 80, .a = 150 };
+    const gradientDarkRed: c.rl.Color = c.rl.Color{ .r = 180, .g = 50, .b = 50, .a = 180 };
 
     const WrongCellArea: c.rl.Rectangle = c.rl.Rectangle.init(x, y, width, height);
 
-    c.rl.drawRectangleGradientEx(WrongCellArea, color, color, color, color);
+    c.rl.drawRectangleGradientEx(WrongCellArea, softRed, gradientDarkRed, softRed, gradientDarkRed);
+
+    c.rl.drawRectangleRoundedLinesEx(WrongCellArea, 0.3, 10, 2.0, c.rl.Color{ .r = 150, .g = 50, .b = 50, .a = 200 });
+
     c.rl.drawText(c.g.FrontendgridLocation.?.*[i][j].value, @as(i32, c.g.FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, c.g.FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
 }
 

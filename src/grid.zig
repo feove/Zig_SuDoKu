@@ -130,8 +130,8 @@ pub fn drawFrontEndGrid() void {
     //Draw Numbers
     for (0..n) |i| {
         for (0..n) |j| {
-            const first_mistake: bool = j == c.go.cellExceptions.?.*[0].i_backend and i == c.go.cellExceptions.?.*[0].j_backend;
-            const second_mistake: bool = j == c.go.cellExceptions.?.*[1].i_backend and i == c.go.cellExceptions.?.*[1].j_backend;
+            const first_mistake: bool = c.go.cellExceptions.?.*[0].defined and j == c.go.cellExceptions.?.*[0].i_backend and i == c.go.cellExceptions.?.*[0].j_backend;
+            const second_mistake: bool = c.go.cellExceptions.?.*[1].defined and j == c.go.cellExceptions.?.*[1].i_backend and i == c.go.cellExceptions.?.*[1].j_backend;
 
             if (!c.p.backendLifeBar[2] and (first_mistake or second_mistake)) {
                 c.go.paintInRedWrongCell(i, j);
@@ -228,7 +228,7 @@ fn drawSelectorGrid() void {
     const i32_height: i32 = @as(i32, @intFromFloat(selector_shape.height));
 
     //Clear last selection
-    c.rl.drawRectangle(currentCellFrontEnd.x_prev, currentCellFrontEnd.y_prev, i32_width, i32_height, c.rl.Color.white);
+    c.rl.drawRectangle(currentCellFrontEnd.x_prev, currentCellFrontEnd.y_prev + 10, i32_width, i32_height, c.rl.Color.white);
     //c.rl.drawRectangleGradientEx(hiligther_shape, c.rl.Color.white, c.rl.Color.white, c.rl.Color.white, c.rl.Color.white);
 
     selector_shape.x = @as(f32, @floatFromInt(currentCellFrontEnd.x));
@@ -281,6 +281,7 @@ pub fn isIntegerPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.backspace)) {
         integerSettingBackend(0);
         integerSettingFrontend(" ");
+        c.go.cellExceptions.?.*[0].defined = false;
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
         integerSettingBackend(1);
