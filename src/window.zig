@@ -15,6 +15,7 @@ pub var previous_layer = Layer.GameMenuView;
 pub var layer = Layer.GameMenuView;
 
 var GameLaunched: bool = false;
+pub var CanGameOver: bool = true;
 
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
@@ -65,6 +66,10 @@ pub fn SettingLayer() void {
 }
 
 pub fn EndGameLayer() void {
+    if (CanGameOver) {
+        c.wait(1);
+        CanGameOver = false;
+    }
     c.rl.clearBackground(c.rl.Color.yellow);
     c.e.isGameMenuPressed();
 

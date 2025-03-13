@@ -24,8 +24,10 @@ pub fn GameInit() void {
 pub fn loseLife() void {
     if (current_life == 0) {
         backendLifeBar[0] = false;
-        //  c.wait(2);
+
         c.w.layer = c.w.Layer.EndGameView;
+        c.g.drawFrontEndGrid();
+        c.go.paintInRedWrongCell(c.g.currentCellBackEnd.y, c.g.currentCellBackEnd.x);
 
         return;
     }

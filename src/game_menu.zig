@@ -34,6 +34,7 @@ pub fn startButtonPressed() void {
             c.w.layer = c.w.Layer.PlayView;
             c.w.previous_layer = c.w.Layer.PlayView;
             c.p.GameInit();
+            c.w.CanGameOver = true;
         }
     }
 

@@ -57,7 +57,15 @@ const allocator = gpa.allocator();
 const n: usize = 9;
 pub var BackendgridLocation: ?*[n][n]u8 = null;
 
+pub fn exceptionInit() !void {
+    c.go.cellExceptions = try allocator.create([2]c.go.CellExeption);
+    c.go.cellExceptions.?.*[0].defined = false;
+    c.go.cellExceptions.?.*[1].defined = false;
+}
+
 pub fn BackendgridInit(difficulty: u8) !void {
+    try exceptionInit();
+
     const backend_grid = try allocator.create([n][n]u8);
 
     try c.gs.readSudokuGrids(difficulty);
@@ -67,7 +75,6 @@ pub fn BackendgridInit(difficulty: u8) !void {
             backend_grid[i][j] = c.gs.copy_for_backend_and_frontend.?.*[i][j];
         }
     }
-
     BackendgridLocation = backend_grid;
 }
 
@@ -120,14 +127,17 @@ pub fn drawFrontEndGrid() void {
         }
         y += spacement;
     }
-
     //Draw Numbers
     for (0..n) |i| {
         for (0..n) |j| {
-            //if (c.p.backendLifeBar[2] or (i != c.go.cellExeption.i_backend or j != c.go.cellExeption.j_backend)) {
+            const first_mistake: bool = j == c.go.cellExceptions.?.*[0].i_backend and i == c.go.cellExceptions.?.*[0].j_backend;
+            const second_mistake: bool = j == c.go.cellExceptions.?.*[1].i_backend and i == c.go.cellExceptions.?.*[1].j_backend;
+
+            if (!c.p.backendLifeBar[2] and (first_mistake or second_mistake)) {
+                c.go.paintInRedWrongCell(i, j);
+            }
             c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
         }
-        c.print("\n", .{});
     }
 }
 
@@ -171,6 +181,8 @@ pub fn FrontendgridInit() !void {
         }
     }
     FrontendgridLocation = frontend_grid;
+
+    try exceptionInit();
 }
 
 pub fn gridReset() !void {
