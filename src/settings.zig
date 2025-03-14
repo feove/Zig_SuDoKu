@@ -41,9 +41,9 @@ const ButtonType = enum {
 
 fn playSound(button_type: ButtonType) void {
     switch (button_type) {
-        ButtonType.SMALL => c.sn.soundControl.play(c.sn.button_sound),
+        ButtonType.SMALL => c.sn.soundControl.play(c.sn.small_sound),
         ButtonType.BASIC => c.sn.soundControl.play(c.sn.button_sound),
-        ButtonType.ARROW => c.sn.soundControl.play(c.sn.button_sound),
+        ButtonType.ARROW => c.sn.soundControl.play(c.sn.arrow_sound),
         ButtonType.BACK => c.sn.soundControl.play(c.sn.back_sound),
     }
 }
@@ -78,7 +78,7 @@ pub fn initButtons() void {
         .y = 660,
         .scale = 0.14,
     };
-    reset_button = Button{ .texture = c.tr.reset_button, .x = 580, .y = 30, .scale = 0.15 };
+    reset_button = Button{ .texture = c.tr.reset_button, .x = 580, .y = 30, .scale = 0.15, .type = ButtonType.ARROW };
     back_button = Button{ .texture = c.tr.back_button, .x = 305, .y = 475, .scale = 0.7, .type = ButtonType.BACK };
     pink_right_arrow = Button{ .texture = c.tr.pink_right_arrow, .x = 522, .y = 270, .scale = 0.5 };
     blue_left_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 420, .y = 270, .scale = 0.5 };

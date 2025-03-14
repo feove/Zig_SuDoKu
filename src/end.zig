@@ -77,6 +77,7 @@ pub fn yes_or_no_areas() !void {
             try c.g.gridReset();
             try c.g.BackendgridInit(c.gm.current_texture);
             try c.g.FrontendgridInit();
+            c.sn.soundControl.play(c.sn.small_sound);
 
             c.w.CanGameOver = true;
         }
@@ -89,6 +90,7 @@ pub fn yes_or_no_areas() !void {
         clickable_area_no.alpha = 100;
         if (clickable_area_no.isClicked()) {
             c.w.layer = c.w.Layer.GameMenuView;
+            c.sn.soundControl.play(c.sn.small_sound);
         }
     } else {
         clickable_area_no.alpha = 0;

@@ -20,7 +20,8 @@ const SoundDisplay = struct {
 
 pub var button_sound: c.rl.Sound = undefined;
 pub var back_sound: c.rl.Sound = undefined;
-
+pub var arrow_sound: c.rl.Sound = undefined;
+pub var small_sound: c.rl.Sound = undefined;
 pub var soundControl = SoundDisplay{};
 
 pub fn soundInit() !void {
@@ -28,5 +29,7 @@ pub fn soundInit() !void {
         c.rl.initAudioDevice();
         back_sound = try c.rl.loadSound("sound/back_button.mp3");
         button_sound = try c.rl.loadSound("sound/button.mp3");
+        arrow_sound = try c.rl.loadSound("sound/arrow_button.mp3");
+        small_sound = try c.rl.loadSound("sound/small_button.mp3");
     }
 }

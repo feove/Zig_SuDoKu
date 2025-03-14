@@ -35,6 +35,8 @@ pub fn startButtonPressed() void {
             c.w.previous_layer = c.w.Layer.PlayView;
             c.p.GameInit();
             c.w.CanGameOver = true;
+
+            c.sn.soundControl.play(c.sn.button_sound);
         }
     }
 
@@ -83,6 +85,7 @@ pub fn doubleArrowsSet() void {
             if (current_texture != 4) {
                 current_texture += 1;
             }
+            c.sn.soundControl.play(c.sn.arrow_sound);
         }
     }
 
@@ -91,10 +94,11 @@ pub fn doubleArrowsSet() void {
         bottom_arrow_scale = 0.45;
 
         if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
+            bottom_arrow_color = c.rl.Color.yellow;
             if (current_texture != 0) {
                 current_texture -= 1;
             }
-            bottom_arrow_color = c.rl.Color.yellow;
+            c.sn.soundControl.play(c.sn.arrow_sound);
         }
     }
 

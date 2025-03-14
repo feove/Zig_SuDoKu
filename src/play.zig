@@ -80,6 +80,7 @@ pub fn settingsOrResetButtons() !void {
         setting_scale = 0.156;
         if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
             c.w.layer = c.w.Layer.SettingView;
+            c.sn.soundControl.play(c.sn.arrow_sound);
         }
     }
 
