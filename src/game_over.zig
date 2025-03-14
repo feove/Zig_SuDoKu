@@ -19,6 +19,8 @@ pub fn isGameOver() void {
             }
 
             c.g.BackendgridLocation.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x] = 0;
+
+            c.sn.soundControl.play(c.sn.wrong_sound);
         } else {
             c.gs.copy_for_backend_and_frontend.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x] = current_integer;
 

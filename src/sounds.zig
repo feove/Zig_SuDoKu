@@ -22,6 +22,9 @@ pub var button_sound: c.rl.Sound = undefined;
 pub var back_sound: c.rl.Sound = undefined;
 pub var arrow_sound: c.rl.Sound = undefined;
 pub var small_sound: c.rl.Sound = undefined;
+pub var game_over_sound: c.rl.Sound = undefined;
+pub var wrong_sound: c.rl.Sound = undefined;
+
 pub var soundControl = SoundDisplay{};
 
 pub fn soundInit() !void {
@@ -31,5 +34,7 @@ pub fn soundInit() !void {
         button_sound = try c.rl.loadSound("sound/button.mp3");
         arrow_sound = try c.rl.loadSound("sound/arrow_button.mp3");
         small_sound = try c.rl.loadSound("sound/small_button.mp3");
+        game_over_sound = try c.rl.loadSound("sound/game_over.mp3");
+        wrong_sound = try c.rl.loadSound("sound/wrong.mp3");
     }
 }
