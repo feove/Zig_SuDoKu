@@ -21,6 +21,8 @@ pub var back_button: c.rl.Texture2D = undefined;
 pub var pink_right_arrow: c.rl.Texture2D = undefined;
 pub var blue_left_arrow: c.rl.Texture2D = undefined;
 pub var game_over: c.rl.Texture2D = undefined;
+pub var victory_panel: c.rl.Texture2D = undefined;
+pub var victory_menu_button: c.rl.Texture2D = undefined;
 
 pub fn TexturesInit() !void {
     start_button_texture = try c.rl.loadTexture("image/start_button.png");
@@ -48,4 +50,6 @@ pub fn TexturesInit() !void {
     pink_right_arrow = try c.rl.loadTexture("image/pink_right_arrow.png");
     blue_left_arrow = try c.rl.loadTexture("image/blue_left_arrow.png");
     game_over = try c.rl.loadTexture("image/game_over.png");
+    victory_panel = try c.rl.loadTexture("image/victory_panel.png");
+    victory_menu_button = try c.rl.loadTexture("image/victory_menu_button.png");
 }

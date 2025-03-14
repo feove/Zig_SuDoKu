@@ -22,6 +22,7 @@ pub const p = @import("play.zig");
 pub const gs = @import("grids_setting.zig");
 pub const go = @import("game_over.zig");
 pub const o = @import("options_settings.zig");
+pub const v = @import("victory.zig");
 
 pub fn clear() void {
     stdout.writeAll("\x1b[2J\x1b[H") catch {};

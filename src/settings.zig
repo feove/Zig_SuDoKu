@@ -28,7 +28,6 @@ const Button = struct {
     }
 };
 
-//Initialization of buttons
 var quit_button: Button = undefined;
 var resume_button: Button = undefined;
 var setting_background: Button = undefined;
@@ -42,6 +41,8 @@ pub var blue_left_arrow: Button = undefined;
 pub var blue_top_arrow: Button = undefined;
 pub var pink_bottom_arrow: Button = undefined;
 pub var game_over_image: Button = undefined;
+pub var victory_panel: Button = undefined;
+pub var victory_menu_button: Button = undefined;
 
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
@@ -57,6 +58,8 @@ pub fn initButtons() void {
     blue_top_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 515, .y = 250, .scale = 0.5, .rotation = 90 };
     pink_bottom_arrow = Button{ .texture = c.tr.pink_right_arrow, .x = 515, .y = 305, .scale = 0.5, .rotation = 90 };
     game_over_image = Button{ .texture = c.tr.game_over, .x = 70, .y = 200, .scale = 0.73 };
+    victory_panel = Button{ .texture = c.tr.victory_panel, .x = 70, .y = 185, .scale = 0.785 };
+    victory_menu_button = Button{ .texture = c.tr.victory_menu_button, .x = 290, .y = 500, .scale = 0.7 };
 }
 
 pub fn isPlayViewPressed() void {

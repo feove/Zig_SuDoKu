@@ -8,6 +8,7 @@ pub const Layer = enum {
     SettingView,
     EndGameView,
     OptionView,
+    VictoryView,
 };
 
 pub var previous_layer = Layer.GameMenuView;
@@ -19,6 +20,10 @@ pub var CanGameOver: bool = true;
 
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
+}
+
+pub fn VictoryLayer() !void {
+    c.v.imageDisplay();
 }
 
 pub fn OptionsLayer() void {
@@ -99,7 +104,8 @@ pub fn PlayLayer() !void {
 
     try c.p.resetPressed();
 
-    //TMP
+    c.p.isVictory();
+
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.h)) {
         c.p.loseLife();
     }

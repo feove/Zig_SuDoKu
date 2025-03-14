@@ -29,6 +29,7 @@ pub fn main() anyerror!void {
             (c.w.Layer.PlayView) => c.w.PlayLayer(),
             (c.w.Layer.SettingView) => c.w.SettingLayer(),
             (c.w.Layer.OptionView) => c.w.OptionsLayer(),
+            (c.w.Layer.VictoryView) => c.w.VictoryLayer(),
         };
     }
 }

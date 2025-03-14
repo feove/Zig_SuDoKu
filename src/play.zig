@@ -110,3 +110,14 @@ pub fn TopGridinterface() void {
     //difficulty
     c.t.newText(c.t.ProtoNerdFont_Bold_30, text, 70, 45, 30, 0, c.rl.Color.black);
 }
+
+pub fn isVictory() void {
+    for (0..9) |i| {
+        for (0..9) |j| {
+            if (c.gs.copy_for_backend_and_frontend.?.*[i][j] == 0) {
+                return;
+            }
+        }
+    }
+    c.w.layer = c.w.Layer.VictoryView;
+}
