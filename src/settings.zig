@@ -9,6 +9,7 @@ const Button = struct {
     scale: f32,
     rotation: f32 = 0,
     color: c.rl.Color = c.rl.Color.white,
+    type: ButtonType = ButtonType.BASIC,
 
     pub fn draw(self: *const Button) void {
         c.rl.drawTextureEx(self.texture, c.rl.Vector2.init(self.x, self.y), self.rotation, self.scale, self.color);
@@ -24,9 +25,28 @@ const Button = struct {
     }
 
     pub fn isClicked(self: *const Button) bool {
-        return isHover(self) and c.rl.isMouseButtonPressed(c.rl.MouseButton.left);
+        const clicked: bool = isHover(self) and c.rl.isMouseButtonPressed(c.rl.MouseButton.left);
+
+        if (clicked) playSound(self.type);
+        return clicked;
     }
 };
+
+const ButtonType = enum {
+    SMALL,
+    BASIC,
+    ARROW,
+    BACK,
+};
+
+fn playSound(button_type: ButtonType) void {
+    switch (button_type) {
+        ButtonType.SMALL => c.sn.soundControl.play(c.sn.button_sound),
+        ButtonType.BASIC => c.sn.soundControl.play(c.sn.button_sound),
+        ButtonType.ARROW => c.sn.soundControl.play(c.sn.button_sound),
+        ButtonType.BACK => c.sn.soundControl.play(c.sn.back_sound),
+    }
+}
 
 var quit_button: Button = undefined;
 var resume_button: Button = undefined;
@@ -43,16 +63,23 @@ pub var pink_bottom_arrow: Button = undefined;
 pub var game_over_image: Button = undefined;
 pub var victory_panel: Button = undefined;
 pub var victory_menu_button: Button = undefined;
+pub var mute_state_button: Button = undefined;
+pub var unmute_state_button: Button = undefined;
 
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
     resume_button = Button{ .texture = c.tr.resume_button, .x = 265, .y = 250, .scale = 0.2 };
     option_button = Button{ .texture = c.tr.option_button, .x = 260, .y = 355, .scale = 0.2 };
-    quit_button = Button{ .texture = c.tr.quit_button, .x = 270, .y = 450, .scale = 0.19 };
+    quit_button = Button{ .texture = c.tr.quit_button, .x = 270, .y = 450, .scale = 0.19, .type = ButtonType.BACK };
 
-    setting_game_menu_button = Button{ .texture = c.tr.start_setting_button, .x = 650, .y = 660, .scale = 0.14 };
+    setting_game_menu_button = Button{
+        .texture = c.tr.start_setting_button,
+        .x = 650,
+        .y = 660,
+        .scale = 0.14,
+    };
     reset_button = Button{ .texture = c.tr.reset_button, .x = 580, .y = 30, .scale = 0.15 };
-    back_button = Button{ .texture = c.tr.back_button, .x = 305, .y = 475, .scale = 0.7 };
+    back_button = Button{ .texture = c.tr.back_button, .x = 305, .y = 475, .scale = 0.7, .type = ButtonType.BACK };
     pink_right_arrow = Button{ .texture = c.tr.pink_right_arrow, .x = 522, .y = 270, .scale = 0.5 };
     blue_left_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 420, .y = 270, .scale = 0.5 };
     blue_top_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 515, .y = 250, .scale = 0.5, .rotation = 90 };
@@ -60,6 +87,9 @@ pub fn initButtons() void {
     game_over_image = Button{ .texture = c.tr.game_over, .x = 70, .y = 200, .scale = 0.73 };
     victory_panel = Button{ .texture = c.tr.victory_panel, .x = 70, .y = 185, .scale = 0.785 };
     victory_menu_button = Button{ .texture = c.tr.victory_menu_button, .x = 290, .y = 500, .scale = 0.7 };
+
+    mute_state_button = Button{ .texture = c.tr.mute_state_button, .x = 220, .y = 340, .scale = 0.8 };
+    unmute_state_button = Button{ .texture = c.tr.unmute_state_button, .x = 220, .y = 340, .scale = 0.8 };
 }
 
 pub fn isPlayViewPressed() void {

@@ -9,13 +9,15 @@ pub fn main() anyerror!void {
 
     c.rl.setTargetFPS(60);
     c.rl.clearBackground(c.rl.Color.white);
-
     //Fonts
     try c.t.FontInit();
 
     //Textures
     try c.tr.TexturesInit();
     c.s.initButtons();
+
+    //Sounds
+    try c.sn.soundInit();
 
     c.clear();
 

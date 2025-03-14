@@ -23,6 +23,8 @@ pub var blue_left_arrow: c.rl.Texture2D = undefined;
 pub var game_over: c.rl.Texture2D = undefined;
 pub var victory_panel: c.rl.Texture2D = undefined;
 pub var victory_menu_button: c.rl.Texture2D = undefined;
+pub var unmute_state_button: c.rl.Texture2D = undefined;
+pub var mute_state_button: c.rl.Texture2D = undefined;
 
 pub fn TexturesInit() !void {
     start_button_texture = try c.rl.loadTexture("image/start_button.png");
@@ -52,4 +54,7 @@ pub fn TexturesInit() !void {
     game_over = try c.rl.loadTexture("image/game_over.png");
     victory_panel = try c.rl.loadTexture("image/victory_panel.png");
     victory_menu_button = try c.rl.loadTexture("image/victory_menu_button.png");
+
+    mute_state_button = try c.rl.loadTexture("image/mute_state_button.png");
+    unmute_state_button = try c.rl.loadTexture("image/unmute_state_button.png");
 }

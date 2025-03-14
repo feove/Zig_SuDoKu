@@ -7,6 +7,9 @@ pub fn buttons_setup() void {
 
     c.s.back_button.color = if (c.s.back_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
 
+    c.s.mute_state_button.color = if (c.s.mute_state_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.unmute_state_button.color = if (c.s.unmute_state_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+
     if (c.s.back_button.isClicked()) {
         c.w.layer = c.w.Layer.SettingView;
     }
@@ -16,4 +19,14 @@ pub fn buttons_setup() void {
 
     c.s.blue_top_arrow.draw();
     c.s.pink_bottom_arrow.draw();
+
+    if (c.sn.soundControl.canPlayAllSound) {
+        c.s.unmute_state_button.draw();
+    } else {
+        c.s.mute_state_button.draw();
+    }
+
+    if (c.s.mute_state_button.isClicked()) {
+        c.sn.soundControl.canPlayAllSound = !c.sn.soundControl.canPlayAllSound;
+    }
 }
