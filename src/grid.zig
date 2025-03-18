@@ -139,11 +139,30 @@ pub fn drawFrontEndGrid() void {
             if (!c.p.backendLifeBar[2] and (first_mistake or second_mistake)) {
                 c.go.paintInRedWrongCell(i, j);
             }
-            const color = if (BackendgridLocation.?.*[j][i] == colored_number and BackendgridLocation.?.*[i][j] != 0) c.rl.Color.blue else c.rl.Color.black;
 
-            c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, color);
+            if (FrontendgridLocation.?.*[i][j].value[0] != ' ' and BackendgridLocation.?.*[j][i] == colored_number) {
+                hiligther_number(i, j);
+            }
+            c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
         }
     }
+}
+fn hiligther_number(i: usize, j: usize) void {
+    c.rl.drawRectangle(c.g.FrontendgridLocation.?.*[i][j].x - 10, c.g.FrontendgridLocation.?.*[i][j].y - 10, c.g.FrontendgridLocation.?.*[i][j].width, c.g.FrontendgridLocation.?.*[i][j].height - 5, c.rl.Color.white);
+
+    const x: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].x - 10));
+    const y: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].y - 10));
+    const width: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].width));
+    const height: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].height - 5));
+
+    const softBlue: c.rl.Color = c.rl.Color{ .r = 80, .g = 80, .b = 220, .a = 150 };
+    const gradientDarkBlue: c.rl.Color = c.rl.Color{ .r = 50, .g = 50, .b = 180, .a = 180 };
+
+    const HighlightCellArea: c.rl.Rectangle = c.rl.Rectangle.init(x, y, width, height);
+
+    c.rl.drawRectangleGradientEx(HighlightCellArea, softBlue, gradientDarkBlue, softBlue, gradientDarkBlue);
+
+    c.rl.drawRectangleRoundedLinesEx(HighlightCellArea, 0.3, 10, 2.0, c.rl.Color{ .r = 50, .g = 50, .b = 150, .a = 200 });
 }
 
 //cuz clc
