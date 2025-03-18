@@ -8,6 +8,8 @@ const init_selector_position: c.rl.Vector2 = c.rl.Vector2.init(85, 140); //Left 
 var selector_shape: c.rl.Rectangle = c.rl.Rectangle.init(init_selector_position.x, init_selector_position.y, 40, 5);
 var hiligther_shape: c.rl.Rectangle = c.rl.Rectangle.init(init_selector_position.x, init_grid_position.y - 50, 40, 40);
 
+var colored_number: u8 = 0;
+
 const Cell = struct {
     x: u16,
     y: u16,
@@ -95,6 +97,7 @@ pub fn drawBackendGrid() void {
     c.print(" Backend :\n X : {d}\n Y : {d}\n", .{ currentCellBackEnd.x, currentCellBackEnd.y });
     c.print("\n Frontend :\n X : {d}\n Y : {d}\n", .{ currentCellFrontEnd.x, currentCellFrontEnd.y });
     c.print("\n" ** 3, .{});
+    c.print(" Current Number : {d}\n", .{colored_number});
 }
 
 pub fn drawFrontEndGrid() void {
@@ -136,7 +139,9 @@ pub fn drawFrontEndGrid() void {
             if (!c.p.backendLifeBar[2] and (first_mistake or second_mistake)) {
                 c.go.paintInRedWrongCell(i, j);
             }
-            c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
+            const color = if (BackendgridLocation.?.*[j][i] == colored_number and BackendgridLocation.?.*[i][j] != 0) c.rl.Color.blue else c.rl.Color.black;
+
+            c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, color);
         }
     }
 }
@@ -219,6 +224,8 @@ pub fn updateCellSelector() void {
     drawSelectorGrid();
 
     isClickedOnCell();
+
+    colored_number = BackendgridLocation.?.*[currentCellBackEnd.y][currentCellBackEnd.x];
 }
 
 fn drawSelectorGrid() void {
