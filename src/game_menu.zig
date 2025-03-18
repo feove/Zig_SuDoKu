@@ -4,6 +4,7 @@ pub fn playPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.s)) {
         c.w.previous_layer = c.w.Layer.GameMenuView;
         c.w.layer = c.w.Layer.PlayView;
+        c.sn.soundControl.play(c.sn.button_sound);
     }
 }
 
@@ -11,6 +12,7 @@ pub fn settingsPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.n)) {
         c.w.previous_layer = c.w.Layer.GameMenuView;
         c.w.layer = c.w.Layer.SettingView;
+        c.sn.soundControl.play(c.sn.button_sound);
     }
 }
 

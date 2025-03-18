@@ -143,7 +143,7 @@ pub fn drawFrontEndGrid() void {
 
 //cuz clc
 fn intAddToSlice(char: u8) [:0]const u8 {
-    const slice: [:0]const u8 = switch (char) {
+    return switch (char) {
         1 => return "1",
         2 => return "2",
         3 => return "3",
@@ -155,8 +155,6 @@ fn intAddToSlice(char: u8) [:0]const u8 {
         9 => return "9",
         else => return " ",
     };
-
-    return slice;
 }
 
 pub var FrontendgridLocation: ?*[n][n]Cell = null;

@@ -1,10 +1,12 @@
 
--> Setting Button + Layers
+- [x]  Setting Button + Layers
 
--> Weight Border
+- [x]  Weight Borders
 
--> Start Menu
+- [x]  Add a Starting Menu
 
--> Add Presets and load feature of Sudoku grid
+- [x]  Add Presets and load feature of Sudoku grid by JSON
 
--> Animated Integeres panels at Top and Bottom Of the GameMenu Layer
+- [x] Animated Integeres panels at Top and Bottom on the Game Menu Layer
+
+- [ ] Add a stopwatch

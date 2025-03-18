@@ -26,11 +26,11 @@ pub fn loseLife() void {
         backendLifeBar[0] = false;
 
         c.w.layer = c.w.Layer.EndGameView;
-        c.sn.soundControl.play(c.sn.game_over_sound);
+
         TopGridinterface();
         c.g.drawFrontEndGrid();
         c.go.paintInRedWrongCell(c.g.currentCellBackEnd.y, c.g.currentCellBackEnd.x);
-
+        c.sn.soundControl.play(c.sn.game_over_sound);
         return;
     }
 

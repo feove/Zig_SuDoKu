@@ -72,12 +72,7 @@ pub fn initButtons() void {
     option_button = Button{ .texture = c.tr.option_button, .x = 260, .y = 355, .scale = 0.2 };
     quit_button = Button{ .texture = c.tr.quit_button, .x = 270, .y = 450, .scale = 0.19, .type = ButtonType.BACK };
 
-    setting_game_menu_button = Button{
-        .texture = c.tr.start_setting_button,
-        .x = 650,
-        .y = 660,
-        .scale = 0.14,
-    };
+    setting_game_menu_button = Button{ .texture = c.tr.start_setting_button, .x = 650, .y = 660, .scale = 0.14 };
     reset_button = Button{ .texture = c.tr.reset_button, .x = 580, .y = 30, .scale = 0.15, .type = ButtonType.ARROW };
     back_button = Button{ .texture = c.tr.back_button, .x = 305, .y = 475, .scale = 0.7, .type = ButtonType.BACK };
     pink_right_arrow = Button{ .texture = c.tr.pink_right_arrow, .x = 522, .y = 270, .scale = 0.5 };
