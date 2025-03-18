@@ -93,17 +93,21 @@ pub fn pencilButton() void {
     const y = c.g.currentCellBackEnd.y;
 
     if (c.g.BackendgridLocation.?.*[y][x] == 0 and !isExceptionCell(x, y)) {
-        c.s.pencil_button.x = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.y].x));
-        c.s.pencil_button.y = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.y].y)) - 5;
+        //c.s.pencil_button.x = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.y].x));
+        //c.s.pencil_button.y = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.y].y)) - 5;
 
-        c.s.pencil_button.color = if (c.s.pencil_button.isHover()) c.rl.Color.white else c.rl.Color.gray.alpha(0);
+        if (!c.s.pencil_button.isHover()) {
+            c.s.pencil_button.color = c.rl.Color.white;
+            c.s.pencil_button.scale = 0.7;
+        } else {
+            c.s.pencil_button.scale = 0.75;
+        }
 
         c.s.pencil_button.draw();
-        c.s.pencil_button.scale = 0.65;
 
         if (c.s.pencil_button.isClicked()) {
-            c.s.pencil_button.scale = 0.7;
             c.w.layer = c.w.Layer.DraftSheetView;
+            c.sn.soundControl.play(c.sn.arrow_sound);
         }
     }
 }
@@ -116,7 +120,7 @@ fn isExceptionCell(x: u8, y: u8) bool {
 }
 
 pub fn TopGridinterface() void {
-    var heart_x: f32 = 500;
+    var heart_x: f32 = 440;
     const heart_y: f32 = 40;
 
     for (0..3) |i| {
@@ -137,7 +141,7 @@ pub fn TopGridinterface() void {
     };
 
     //difficulty
-    c.t.newText(c.t.ProtoNerdFont_Bold_30, text, 70, 45, 30, 0, c.rl.Color.black);
+    c.t.newText(c.t.ProtoNerdFont_Bold_30, text, 30, 40, 30, 0, c.rl.Color.black);
 }
 
 pub fn isVictory() void {

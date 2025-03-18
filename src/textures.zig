@@ -36,6 +36,8 @@ pub var six_button: c.rl.Texture2D = undefined;
 pub var seven_button: c.rl.Texture2D = undefined;
 pub var eight_button: c.rl.Texture2D = undefined;
 pub var nine_button: c.rl.Texture2D = undefined;
+pub var confirm_button: c.rl.Texture2D = undefined;
+pub var clear_button: c.rl.Texture2D = undefined;
 
 pub var blanck_board_panel: c.rl.Texture2D = undefined;
 
@@ -72,4 +74,15 @@ pub fn TexturesInit() !void {
     unmute_state_button = try c.rl.loadTexture("image/unmute_state_button.png");
     pencil_button = try c.rl.loadTexture("image/edit_button.png");
     blanck_board_panel = try c.rl.loadTexture("image/blanck_board.png");
+    one_button = try c.rl.loadTexture("image/integer_1.png");
+    two_button = try c.rl.loadTexture("image/integer_2.png");
+    three_button = try c.rl.loadTexture("image/integer_3.png");
+    four_button = try c.rl.loadTexture("image/integer_4.png");
+    five_button = try c.rl.loadTexture("image/integer_5.png");
+    six_button = try c.rl.loadTexture("image/integer_6.png");
+    seven_button = try c.rl.loadTexture("image/integer_7.png");
+    eight_button = try c.rl.loadTexture("image/integer_8.png");
+    nine_button = try c.rl.loadTexture("image/integer_9.png");
+    confirm_button = try c.rl.loadTexture("image/confirm_button.png");
+    clear_button = try c.rl.loadTexture("image/delete_button.png");
 }
