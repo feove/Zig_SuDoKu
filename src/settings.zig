@@ -66,7 +66,17 @@ pub var victory_menu_button: Button = undefined;
 pub var mute_state_button: Button = undefined;
 pub var unmute_state_button: Button = undefined;
 pub var pencil_button: Button = undefined;
+
 pub var blanck_panel: Button = undefined;
+pub var one_button: Button = undefined;
+pub var two_button: Button = undefined;
+pub var three_button: Button = undefined;
+pub var four_button: Button = undefined;
+pub var five_button: Button = undefined;
+pub var six_button: Button = undefined;
+pub var seven_button: Button = undefined;
+pub var eight_button: Button = undefined;
+pub var nine_button: Button = undefined;
 
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
@@ -89,6 +99,13 @@ pub fn initButtons() void {
     unmute_state_button = Button{ .texture = c.tr.unmute_state_button, .x = 220, .y = 340, .scale = 0.8 };
     pencil_button = Button{ .texture = c.tr.pencil_button, .x = 515, .y = 30, .scale = 0.7, .type = ButtonType.ARROW };
     blanck_panel = Button{ .texture = c.tr.blanck_board_panel, .x = 170, .y = 220, .scale = 0.3 };
+
+    one_button = Button{ .texture = c.tr.one_button, .x = 200, .y = 250, .scale = 1 };
+    two_button = Button{ .texture = c.tr.two_button, .x = 280, .y = 250, .scale = 1 };
+    three_button = Button{ .texture = c.tr.three_button, .x = 360, .y = 250, .scale = 1 };
+    four_button = Button{ .texture = c.tr.four_button, .x = 440, .y = 250, .scale = 1 };
+    five_button = Button{ .texture = c.tr.five_button, .x = 200, .y = 345, .scale = 1 };
+    six_button = Button{ .texture = c.tr.six_button, .x = 280, .y = 345, .scale = 1 };
 }
 
 pub fn isPlayViewPressed() void {
