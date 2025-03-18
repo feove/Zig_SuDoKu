@@ -1,5 +1,6 @@
 pub const CellExeption = struct { i_backend: usize, j_backend: usize, defined: bool };
 
+pub var wrongNumber: u8 = undefined;
 pub var cellExceptions: ?*[2]CellExeption = undefined;
 pub var CanDrawRed: bool = false;
 
@@ -12,6 +13,8 @@ pub fn isGameOver() void {
         if (current_integer != c.gs.solution_grid.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x]) {
             c.p.loseLife();
 
+            wrongNumber = current_integer;
+
             if (!cellExceptions.?.*[0].defined) {
                 cellExceptions.?.*[0] = CellExeption{ .i_backend = c.g.currentCellBackEnd.x, .j_backend = c.g.currentCellBackEnd.y, .defined = true };
             } else {
@@ -19,6 +22,7 @@ pub fn isGameOver() void {
             }
 
             c.g.BackendgridLocation.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x] = 0;
+            c.g.FrontendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.y].value = " ";
 
             c.sn.soundControl.play(c.sn.wrong_sound);
         } else {
@@ -56,7 +60,7 @@ pub fn paintInRedWrongCell(j: usize, i: usize) void {
 
     c.rl.drawRectangleRoundedLinesEx(WrongCellArea, 0.3, 10, 2.0, c.rl.Color{ .r = 150, .g = 50, .b = 50, .a = 200 });
 
-    c.rl.drawText(c.g.FrontendgridLocation.?.*[i][j].value, @as(i32, c.g.FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, c.g.FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
+    c.rl.drawText(c.g.intAddToSlice(wrongNumber), @as(i32, c.g.FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, c.g.FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
 }
 
 //The End

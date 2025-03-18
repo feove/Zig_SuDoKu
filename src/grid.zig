@@ -166,7 +166,7 @@ fn hiligther_number(i: usize, j: usize) void {
 }
 
 //cuz clc
-fn intAddToSlice(char: u8) [:0]const u8 {
+pub fn intAddToSlice(char: u8) [:0]const u8 {
     return switch (char) {
         1 => return "1",
         2 => return "2",
