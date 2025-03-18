@@ -65,6 +65,8 @@ pub var victory_panel: Button = undefined;
 pub var victory_menu_button: Button = undefined;
 pub var mute_state_button: Button = undefined;
 pub var unmute_state_button: Button = undefined;
+pub var pencil_button: Button = undefined;
+pub var blanck_panel: Button = undefined;
 
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
@@ -85,6 +87,8 @@ pub fn initButtons() void {
 
     mute_state_button = Button{ .texture = c.tr.mute_state_button, .x = 220, .y = 340, .scale = 0.8 };
     unmute_state_button = Button{ .texture = c.tr.unmute_state_button, .x = 220, .y = 340, .scale = 0.8 };
+    pencil_button = Button{ .texture = c.tr.pencil_button, .x = 700, .y = 30, .scale = 0.65, .type = ButtonType.ARROW };
+    blanck_panel = Button{ .texture = c.tr.blanck_board_panel, .x = 100, .y = 200, .scale = 0.3 };
 }
 
 pub fn isPlayViewPressed() void {

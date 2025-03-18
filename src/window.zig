@@ -2,14 +2,7 @@ const c = @import("constant.zig");
 
 pub var exitWindowByProgram = false;
 
-pub const Layer = enum {
-    GameMenuView,
-    PlayView,
-    SettingView,
-    EndGameView,
-    OptionView,
-    VictoryView,
-};
+pub const Layer = enum { GameMenuView, PlayView, SettingView, EndGameView, OptionView, VictoryView, DraftSheetView };
 
 pub var previous_layer = Layer.GameMenuView;
 
@@ -20,6 +13,10 @@ pub var CanGameOver: bool = true;
 
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
+}
+
+pub fn DraftSheetLayer() void {
+    c.d.pencilPanelView();
 }
 
 pub fn VictoryLayer() !void {
@@ -100,6 +97,8 @@ pub fn PlayLayer() !void {
     c.p.TopGridinterface();
 
     try c.p.settingsOrResetButtons();
+
+    c.p.pencilButton();
 
     c.p.endPressed();
 

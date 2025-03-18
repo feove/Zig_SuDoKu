@@ -88,6 +88,33 @@ pub fn settingsOrResetButtons() !void {
     c.rl.drawTextureEx(c.tr.settings_button, c.rl.Vector2.init(settings_x + 210, settings_y), 0, setting_scale, setting_color);
 }
 
+pub fn pencilButton() void {
+    const x = c.g.currentCellBackEnd.x;
+    const y = c.g.currentCellBackEnd.y;
+
+    if (c.g.BackendgridLocation.?.*[y][x] == 0 and !isExceptionCell(x, y)) {
+        c.s.pencil_button.x = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.y].x));
+        c.s.pencil_button.y = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[c.g.currentCellBackEnd.x][c.g.currentCellBackEnd.y].y)) - 5;
+
+        c.s.pencil_button.color = if (c.s.pencil_button.isHover()) c.rl.Color.white else c.rl.Color.gray.alpha(0);
+
+        c.s.pencil_button.draw();
+        c.s.pencil_button.scale = 0.65;
+
+        if (c.s.pencil_button.isClicked()) {
+            c.s.pencil_button.scale = 0.7;
+            c.w.layer = c.w.Layer.DraftSheetView;
+        }
+    }
+}
+
+fn isExceptionCell(x: u8, y: u8) bool {
+    const same_x: bool = x == c.go.cellExceptions.?.*[0].i_backend or x == c.go.cellExceptions.?.*[1].i_backend;
+    const same_y: bool = y == c.go.cellExceptions.?.*[0].j_backend or y == c.go.cellExceptions.?.*[1].j_backend;
+
+    return same_x and same_y;
+}
+
 pub fn TopGridinterface() void {
     var heart_x: f32 = 500;
     const heart_y: f32 = 40;

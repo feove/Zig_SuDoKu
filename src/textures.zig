@@ -25,6 +25,19 @@ pub var victory_panel: c.rl.Texture2D = undefined;
 pub var victory_menu_button: c.rl.Texture2D = undefined;
 pub var unmute_state_button: c.rl.Texture2D = undefined;
 pub var mute_state_button: c.rl.Texture2D = undefined;
+pub var pencil_button: c.rl.Texture2D = undefined;
+
+pub var one_button: c.rl.Texture2D = undefined;
+pub var two_button: c.rl.Texture2D = undefined;
+pub var three_button: c.rl.Texture2D = undefined;
+pub var four_button: c.rl.Texture2D = undefined;
+pub var five_button: c.rl.Texture2D = undefined;
+pub var six_button: c.rl.Texture2D = undefined;
+pub var seven_button: c.rl.Texture2D = undefined;
+pub var eight_button: c.rl.Texture2D = undefined;
+pub var nine_button: c.rl.Texture2D = undefined;
+
+pub var blanck_board_panel: c.rl.Texture2D = undefined;
 
 pub fn TexturesInit() !void {
     start_button_texture = try c.rl.loadTexture("image/start_button.png");
@@ -57,4 +70,6 @@ pub fn TexturesInit() !void {
 
     mute_state_button = try c.rl.loadTexture("image/mute_state_button.png");
     unmute_state_button = try c.rl.loadTexture("image/unmute_state_button.png");
+    pencil_button = try c.rl.loadTexture("image/edit_button.png");
+    blanck_board_panel = try c.rl.loadTexture("image/blanck_board.png");
 }
