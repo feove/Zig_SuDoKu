@@ -48,6 +48,14 @@ pub fn isEmpty(x: usize, y: usize) bool {
     return true;
 }
 
+fn trash_button(i: usize, j: usize) void {
+    draftCells.?.*[j][i].empty = true;
+    for (0..9) |e| {
+        draftCells.?.*[j][i].integers.*[e] = false;
+    }
+    draftCells.?.*[j][i].empty = true;
+}
+
 pub fn drawDraftNumbers(i: usize, j: usize) void {
     const integer_spacement: u8 = 12;
 
@@ -72,7 +80,7 @@ pub fn drawDraftNumbers(i: usize, j: usize) void {
 
             y_corner = if (e + 1 >= 5) y_corner + integer_spacement + 10 else y_corner;
 
-            c.t.newText(c.t.ProtoNerdFont_Bold_30, text, x_corner, y_corner, 20, 0, c.rl.Color.black);
+            c.t.newText(c.t.ProtoNerdFont_Bold_30, text, x_corner, y_corner, 22, 0, c.rl.Color.gray);
         }
     }
 }
@@ -85,6 +93,10 @@ fn draft_meca() void {
         c.w.layer = c.w.Layer.PlayView;
 
         draftCells.?.*[x][y].empty = isEmpty(x, y);
+    }
+
+    if (c.s.clear_button.isClicked()) {
+        trash_button(x, y);
     }
 
     c.s.one_button.color = if (draftCells.?.*[y][x].integers.*[0]) c.rl.Color.gray else c.rl.Color.white;

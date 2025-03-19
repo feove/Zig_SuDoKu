@@ -104,7 +104,7 @@ pub fn initButtons() void {
     pencil_button = Button{ .texture = c.tr.pencil_button, .x = 515, .y = 30, .scale = 0.7, .type = ButtonType.ARROW };
     blanck_panel = Button{ .texture = c.tr.blanck_board_panel, .x = 90, .y = 235, .scale = 0.4 };
 
-    one_button = Button{ .texture = c.tr.one_button, .x = 130, .y = 315, .scale = 1 };
+    one_button = Button{ .texture = c.tr.one_button, .x = 140, .y = 330, .scale = 1 };
     two_button = Button{ .texture = c.tr.two_button, .x = one_button.x + button_spacement, .y = one_button.y, .scale = 1 };
     three_button = Button{ .texture = c.tr.three_button, .x = one_button.x + button_spacement * 2, .y = one_button.y, .scale = 1 };
     four_button = Button{ .texture = c.tr.four_button, .x = one_button.x + button_spacement * 3, .y = one_button.y, .scale = 1 };
