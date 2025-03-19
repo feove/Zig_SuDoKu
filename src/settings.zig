@@ -78,6 +78,10 @@ pub var seven_button: Button = undefined;
 pub var eight_button: Button = undefined;
 pub var nine_button: Button = undefined;
 
+pub var confirm_button: Button = undefined;
+pub var clear_button: Button = undefined;
+const button_spacement: f32 = 80;
+
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
     resume_button = Button{ .texture = c.tr.resume_button, .x = 265, .y = 250, .scale = 0.2 };
@@ -98,14 +102,21 @@ pub fn initButtons() void {
     mute_state_button = Button{ .texture = c.tr.mute_state_button, .x = 220, .y = 340, .scale = 0.8 };
     unmute_state_button = Button{ .texture = c.tr.unmute_state_button, .x = 220, .y = 340, .scale = 0.8 };
     pencil_button = Button{ .texture = c.tr.pencil_button, .x = 515, .y = 30, .scale = 0.7, .type = ButtonType.ARROW };
-    blanck_panel = Button{ .texture = c.tr.blanck_board_panel, .x = 170, .y = 220, .scale = 0.3 };
+    blanck_panel = Button{ .texture = c.tr.blanck_board_panel, .x = 90, .y = 235, .scale = 0.4 };
 
-    one_button = Button{ .texture = c.tr.one_button, .x = 200, .y = 250, .scale = 1 };
-    two_button = Button{ .texture = c.tr.two_button, .x = 280, .y = 250, .scale = 1 };
-    three_button = Button{ .texture = c.tr.three_button, .x = 360, .y = 250, .scale = 1 };
-    four_button = Button{ .texture = c.tr.four_button, .x = 440, .y = 250, .scale = 1 };
-    five_button = Button{ .texture = c.tr.five_button, .x = 200, .y = 345, .scale = 1 };
-    six_button = Button{ .texture = c.tr.six_button, .x = 280, .y = 345, .scale = 1 };
+    one_button = Button{ .texture = c.tr.one_button, .x = 130, .y = 315, .scale = 1 };
+    two_button = Button{ .texture = c.tr.two_button, .x = one_button.x + button_spacement, .y = one_button.y, .scale = 1 };
+    three_button = Button{ .texture = c.tr.three_button, .x = one_button.x + button_spacement * 2, .y = one_button.y, .scale = 1 };
+    four_button = Button{ .texture = c.tr.four_button, .x = one_button.x + button_spacement * 3, .y = one_button.y, .scale = 1 };
+    five_button = Button{ .texture = c.tr.five_button, .x = one_button.x + 4 * button_spacement, .y = one_button.y + button_spacement / 2, .scale = 1 };
+
+    six_button = Button{ .texture = c.tr.six_button, .x = one_button.x, .y = one_button.y + button_spacement, .scale = 1 };
+    seven_button = Button{ .texture = c.tr.seven_button, .x = one_button.x + button_spacement * 1, .y = one_button.y + button_spacement, .scale = 1 };
+    eight_button = Button{ .texture = c.tr.eight_button, .x = one_button.x + button_spacement * 2, .y = one_button.y + button_spacement, .scale = 1 };
+    nine_button = Button{ .texture = c.tr.nine_button, .x = one_button.x + button_spacement * 3, .y = one_button.y + button_spacement, .scale = 1 };
+
+    clear_button = Button{ .texture = c.tr.clear_button, .x = 555, .y = 330, .scale = 1 };
+    confirm_button = Button{ .texture = c.tr.confirm_button, .x = 540, .y = 400, .scale = 1 };
 }
 
 pub fn isPlayViewPressed() void {
