@@ -40,6 +40,7 @@ pub var confirm_button: c.rl.Texture2D = undefined;
 pub var clear_button: c.rl.Texture2D = undefined;
 
 pub var blanck_board_panel: c.rl.Texture2D = undefined;
+pub var window_icon: c.rl.Image = undefined;
 
 pub fn TexturesInit() !void {
     start_button_texture = try c.rl.loadTexture("image/start_button.png");
@@ -85,4 +86,6 @@ pub fn TexturesInit() !void {
     nine_button = try c.rl.loadTexture("image/integer_9.png");
     confirm_button = try c.rl.loadTexture("image/confirm_button.png");
     clear_button = try c.rl.loadTexture("image/delete_button.png");
+
+    window_icon = try c.rl.loadImage("image/ic_sudoku.png");
 }

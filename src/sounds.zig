@@ -9,6 +9,12 @@ const SoundDisplay = struct {
         }
     }
 
+    pub fn stopMusic(self: *const SoundDisplay, sound: c.rl.Sound) void {
+        if (!self.canPlayAllSound) {
+            c.rl.stopSound(sound);
+        }
+    }
+
     pub fn muteAll(self: *const SoundDisplay) void {
         self.canPlayAllSound = false;
     }

@@ -7,6 +7,9 @@ pub fn main() anyerror!void {
     c.rl.initWindow(screenWidth, screenHeight, "SuDoKu Game");
     defer c.rl.closeWindow();
 
+    //Icons
+    c.rl.setWindowIcon(c.tr.window_icon);
+
     c.rl.setTargetFPS(60);
     c.rl.clearBackground(c.rl.Color.white);
     //Fonts

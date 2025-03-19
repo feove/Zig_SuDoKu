@@ -24,9 +24,13 @@ pub fn buttons_setup() void {
         c.s.unmute_state_button.draw();
     } else {
         c.s.mute_state_button.draw();
+        c.sn.soundControl.stopMusic(c.sn.rdn056);
     }
 
     if (c.s.mute_state_button.isClicked()) {
         c.sn.soundControl.canPlayAllSound = !c.sn.soundControl.canPlayAllSound;
+        if (c.sn.soundControl.canPlayAllSound) {
+            c.sn.soundControl.play(c.sn.rdn056);
+        }
     }
 }
