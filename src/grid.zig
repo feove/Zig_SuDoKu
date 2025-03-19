@@ -144,6 +144,9 @@ pub fn drawFrontEndGrid() void {
                 hiligther_number(i, j);
             }
 
+            if (FrontendgridLocation.?.*[i][j].value[0] == ' ' and !c.d.draftCells.?.*[i][j].empty) {
+                c.d.drawDraftNumbers(i, j);
+            }
             c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
         }
     }
@@ -304,12 +307,10 @@ pub fn isIntegerPressed() void {
         integerSettingBackend(0);
         integerSettingFrontend(" ");
         c.go.cellExceptions.?.*[0].defined = false;
-
-        if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
-            c.d.draftCells.?.*[currentCellBackEnd.x][currentCellBackEnd.y].empty = true;
-            integerSettingBackend(1);
-            integerSettingFrontend("1");
-        }
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
+        integerSettingBackend(1);
+        integerSettingFrontend("1");
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.two)) {
         integerSettingBackend(2);
@@ -352,6 +353,7 @@ fn integerSettingBackend(integer: u8) void {
 }
 
 fn integerSettingFrontend(integer: [:0]const u8) void {
+    c.d.draftCells.?.*[currentCellBackEnd.x][currentCellBackEnd.y].empty = true;
     if (c.gs.copy_for_backend_and_frontend.?.*[currentCellBackEnd.y][currentCellBackEnd.x] == 0)
         FrontendgridLocation.?.*[currentCellBackEnd.x][currentCellBackEnd.y].value = integer;
 }

@@ -35,8 +35,10 @@ pub fn pencilPanelView() void {
     draft_meca();
 }
 
-pub fn clearCell(i: usize, j: usize) void {
-    c.rl.drawRectangle(c.g.FrontendgridLocation.?.*[i][j].x - 10, c.g.FrontendgridLocation.?.*[i][j].y - 10, c.g.FrontendgridLocation.?.*[i][j].width, c.g.FrontendgridLocation.?.*[i][j].height - 5, c.rl.Color.white);
+pub fn clearCellRequired(i: usize, j: usize) void {
+    if (!draftCells.?.*[j][i].empty) {
+        c.rl.drawRectangle(c.g.FrontendgridLocation.?.*[i][j].x - 10, c.g.FrontendgridLocation.?.*[i][j].y - 10, c.g.FrontendgridLocation.?.*[i][j].width, c.g.FrontendgridLocation.?.*[i][j].height - 5, c.rl.Color.white);
+    }
 }
 
 pub fn isEmpty(x: usize, y: usize) bool {
@@ -47,11 +49,31 @@ pub fn isEmpty(x: usize, y: usize) bool {
 }
 
 pub fn drawDraftNumbers(i: usize, j: usize) void {
-    const x_corner: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].x + 5));
-    const y_corner: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].y + 5));
+    const integer_spacement: u8 = 12;
 
-    if (draftCells.?.*[j][i].integers.*[0]) {
-        c.t.newText(c.t.ProtoNerdFont_Bold_30, "1", x_corner, y_corner, 15, 0, c.rl.Color.black);
+    for (0..9) |e| {
+        var x_corner: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].x - 5));
+        var y_corner: f32 = @as(f32, @floatFromInt(c.g.FrontendgridLocation.?.*[i][j].y - 5));
+        if (draftCells.?.*[j][i].integers.*[e]) {
+            const text: [:0]const u8 = switch (e + 1) {
+                1 => "1",
+                2 => "2",
+                3 => "3",
+                4 => "4",
+                5 => "5",
+                6 => "6",
+                7 => "7",
+                8 => "8",
+                9 => "9",
+                else => " ",
+            };
+
+            x_corner += @floatFromInt(@mod(e, 4) * integer_spacement);
+
+            y_corner = if (e + 1 >= 5) y_corner + integer_spacement + 10 else y_corner;
+
+            c.t.newText(c.t.ProtoNerdFont_Bold_30, text, x_corner, y_corner, 20, 0, c.rl.Color.black);
+        }
     }
 }
 
@@ -62,8 +84,6 @@ fn draft_meca() void {
     if (c.s.confirm_button.isClicked() or c.rl.isKeyPressed(c.rl.KeyboardKey.enter)) {
         c.w.layer = c.w.Layer.PlayView;
 
-        //clearCell(x, y);
-        drawDraftNumbers(x, y);
         draftCells.?.*[x][y].empty = isEmpty(x, y);
     }
 
