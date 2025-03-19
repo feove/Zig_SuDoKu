@@ -1,4 +1,8 @@
-pub const CellExeption = struct { i_backend: usize, j_backend: usize, defined: bool };
+pub const CellExeption = struct {
+    i_backend: usize,
+    j_backend: usize,
+    defined: bool,
+};
 
 pub var wrongNumber: u8 = undefined;
 pub var cellExceptions: ?*[2]CellExeption = undefined;

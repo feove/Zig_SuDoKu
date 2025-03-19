@@ -120,7 +120,7 @@ fn isExceptionCell(x: u8, y: u8) bool {
 }
 
 pub fn TopGridinterface() void {
-    var heart_x: f32 = 440;
+    var heart_x: f32 = 420;
     const heart_y: f32 = 40;
 
     for (0..3) |i| {
@@ -133,15 +133,15 @@ pub fn TopGridinterface() void {
     }
 
     const text: [:0]const u8 = switch (c.gm.current_texture) {
-        1 => "Difficulty : Easy",
-        2 => "Difficulty : Normal",
-        3 => "Difficulty : Hard",
-        4 => "Difficulty : Extrem",
-        else => "Difficulty : Random",
+        1 => "Level : Easy",
+        2 => "Level : Normal",
+        3 => "Level : Hard",
+        4 => "Level : Extrem",
+        else => "Level : Random",
     };
 
     //difficulty
-    c.t.newText(c.t.ProtoNerdFont_Bold_30, text, 30, 40, 30, 0, c.rl.Color.black);
+    c.t.newText(c.t.ProtoNerdFont_Bold_30, text, 70, 40, 30, 0, c.rl.Color.black);
 }
 
 pub fn isVictory() void {

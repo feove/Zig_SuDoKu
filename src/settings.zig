@@ -2,7 +2,7 @@ const c = @import("constant.zig");
 
 const background_dimensions: c.rl.Rectangle = c.rl.Rectangle.init(100, 100, 400, 400);
 
-const Button = struct {
+pub const Button = struct {
     texture: c.rl.Texture2D,
     x: f32,
     y: f32,

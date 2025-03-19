@@ -54,7 +54,7 @@ pub var currentCellBackEnd = CurrentCellBackend{};
 var currentCellFrontEnd = CurrentCellFrontEnd{};
 
 var gpa = c.std.heap.GeneralPurposeAllocator(.{}){};
-const allocator = gpa.allocator();
+pub const allocator = gpa.allocator();
 
 const n: usize = 9;
 pub var BackendgridLocation: ?*[n][n]u8 = null;
@@ -143,6 +143,7 @@ pub fn drawFrontEndGrid() void {
             if (FrontendgridLocation.?.*[i][j].value[0] != ' ' and BackendgridLocation.?.*[j][i] == colored_number) {
                 hiligther_number(i, j);
             }
+
             c.rl.drawText(FrontendgridLocation.?.*[i][j].value, @as(i32, FrontendgridLocation.?.*[i][j].x) + 5, @as(i32, FrontendgridLocation.?.*[i][j].y), 35, c.rl.Color.black);
         }
     }
@@ -205,6 +206,8 @@ pub fn FrontendgridInit() !void {
     FrontendgridLocation = frontend_grid;
 
     try exceptionInit();
+
+    try c.d.draftCellsInit();
 }
 
 pub fn gridReset() !void {
@@ -261,11 +264,6 @@ fn drawSelectorGrid() void {
     hiligther_shape.x = selector_shape.x;
     hiligther_shape.y = selector_shape.y - 50;
 
-    //If the current case contain an integer (Didn't workd)
-    //if (BackendgridLocation.?.*[currentCellBackEnd.x][currentCellBackEnd.y] != ' ') {
-    //    c.rl.drawRectangleGradientEx(hiligther_shape, c.rl.Color.gray, c.rl.Color.gray, c.rl.Color.gray, c.rl.Color.gray);
-    //}
-
     c.rl.drawRectangleGradientEx(selector_shape, c.rl.Color.gray, c.rl.Color.black, c.rl.Color.black, c.rl.Color.gray);
 }
 
@@ -306,10 +304,12 @@ pub fn isIntegerPressed() void {
         integerSettingBackend(0);
         integerSettingFrontend(" ");
         c.go.cellExceptions.?.*[0].defined = false;
-    }
-    if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
-        integerSettingBackend(1);
-        integerSettingFrontend("1");
+
+        if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
+            c.d.draftCells.?.*[currentCellBackEnd.x][currentCellBackEnd.y].empty = true;
+            integerSettingBackend(1);
+            integerSettingFrontend("1");
+        }
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.two)) {
         integerSettingBackend(2);
