@@ -8,7 +8,7 @@ pub var previous_layer = Layer.GameMenuView;
 
 pub var layer = Layer.GameMenuView;
 
-var GameLaunched: bool = false;
+var GameLaunched: bool = true;
 pub var CanGameOver: bool = true;
 
 pub fn windowHasBeenQuit() bool {
@@ -33,6 +33,7 @@ pub fn OptionsLayer() void {
 
 pub fn GameMenuLayer() !void {
     if (GameLaunched) {
+        c.sn.soundControl.play(c.sn.rdn056);
         GameLaunched = false;
     }
 
