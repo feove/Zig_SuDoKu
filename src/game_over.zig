@@ -16,13 +16,13 @@ pub fn isGameOver() void {
     const y = c.g.currentCellBackEnd.y;
 
     if (current_integer != 0) {
-        if (checkWithSolution(current_integer)) {
-            c.p.loseLife();
-
+        if (isWrong(current_integer)) {
             addNewException(current_integer, x, y);
 
             c.g.BackendgridLocation.?.*[y][x] = 0;
             c.g.FrontendgridLocation.?.*[x][y].value = " ";
+
+            c.p.loseLife();
 
             c.sn.soundControl.play(c.sn.wrong_sound);
 
@@ -58,7 +58,7 @@ fn addNewException(current_integer: u8, i: u8, j: u8) void {
         }
     }
 }
-fn checkWithSolution(current_integer: u8) bool {
+fn isWrong(current_integer: u8) bool {
     return current_integer != c.gs.solution_grid.?.*[c.g.currentCellBackEnd.y][c.g.currentCellBackEnd.x];
 }
 

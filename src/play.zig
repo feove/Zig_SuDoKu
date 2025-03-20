@@ -25,23 +25,22 @@ pub fn loseLife() void {
     if (current_life == 0) {
         backendLifeBar[0] = false;
 
-        c.w.layer = c.w.Layer.EndGameView;
-
         TopGridinterface();
         c.g.drawFrontEndGrid();
-        //c.go.paintInRedWrongCells();
 
-        c.sn.soundControl.play(c.sn.game_over_sound);
+        c.w.layer = c.w.Layer.EndGameView;
         return;
     }
-
     backendLifeBar[current_life] = false;
     current_life -= 1;
 }
 
-pub fn endPressed() void {
+pub fn cheatPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.b)) {
         c.w.layer = c.w.Layer.EndGameView;
+    }
+    if (c.rl.isKeyPressed(c.rl.KeyboardKey.w)) {
+        c.w.layer = c.w.Layer.VictoryView;
     }
 }
 

@@ -31,6 +31,8 @@ pub var small_sound: c.rl.Sound = undefined;
 pub var game_over_sound: c.rl.Sound = undefined;
 pub var wrong_sound: c.rl.Sound = undefined;
 pub var rdn056: c.rl.Sound = undefined;
+pub var cell_sound: c.rl.Sound = undefined;
+pub var good_answer_sound: c.rl.Sound = undefined;
 pub var soundControl = SoundDisplay{};
 
 pub fn soundInit() !void {
@@ -43,5 +45,7 @@ pub fn soundInit() !void {
         game_over_sound = try c.rl.loadSound("sound/game_over.mp3");
         wrong_sound = try c.rl.loadSound("sound/wrong.mp3");
         rdn056 = try c.rl.loadSound("sound/rdn056.mp3");
+        cell_sound = try c.rl.loadSound("sound/cell_sound.wav");
+        good_answer_sound = try c.rl.loadSound("sound/good_answer_sound.wav");
     }
 }

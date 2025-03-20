@@ -10,6 +10,7 @@ pub var layer = Layer.GameMenuView;
 
 var GameLaunched: bool = true;
 pub var CanGameOver: bool = true;
+pub var WonSound: bool = true;
 
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
@@ -20,6 +21,10 @@ pub fn DraftSheetLayer() void {
 }
 
 pub fn VictoryLayer() !void {
+    if (WonSound) {
+        c.sn.soundControl.play(c.sn.good_answer_sound);
+        WonSound = false;
+    }
     c.v.imageDisplay();
 }
 
@@ -35,6 +40,7 @@ pub fn GameMenuLayer() !void {
     if (GameLaunched) {
         c.sn.soundControl.play(c.sn.rdn056);
         GameLaunched = false;
+        WonSound = true;
     }
 
     c.rl.clearBackground(c.rl.Color.white);
@@ -70,6 +76,7 @@ pub fn EndGameLayer() !void {
     if (c.w.CanGameOver) {
         c.wait(2);
         c.w.CanGameOver = false;
+        c.sn.soundControl.play(c.sn.game_over_sound);
     }
     c.e.isGameMenuPressed();
 
@@ -101,7 +108,7 @@ pub fn PlayLayer() !void {
 
     c.p.pencilButton();
 
-    c.p.endPressed();
+    c.p.cheatPressed();
 
     try c.p.resetPressed();
 

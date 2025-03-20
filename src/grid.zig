@@ -63,6 +63,7 @@ pub fn exceptionInit() !void {
     c.go.cellExceptions = try allocator.create([3]c.go.CellExeption);
     c.go.cellExceptions.?.*[0].defined = false;
     c.go.cellExceptions.?.*[1].defined = false;
+    c.go.cellExceptions.?.*[2].defined = false;
 }
 
 pub fn BackendgridInit(difficulty: u8) !void {
@@ -133,7 +134,9 @@ pub fn drawFrontEndGrid() void {
     //Draw Numbers
     for (0..n) |i| {
         for (0..n) |j| {
-            c.go.paintInRedWrongCells();
+            if (BackendgridLocation.?.*[i][j] == 0) {
+                c.go.paintInRedWrongCells();
+            }
 
             if (FrontendgridLocation.?.*[i][j].value[0] != ' ' and BackendgridLocation.?.*[j][i] == colored_number) {
                 hiligther_number(i, j);
@@ -295,6 +298,8 @@ fn cellSwitchingBackend(x: u8, y: u8, i: i8, j: i8) void {
         currentCellBackEnd.on_left = new_x == 0;
         currentCellBackEnd.on_right = new_x == n - 1;
     }
+
+    c.sn.soundControl.play(c.sn.cell_sound);
 }
 
 pub fn isIntegerPressed() void {
