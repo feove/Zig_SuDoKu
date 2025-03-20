@@ -60,7 +60,7 @@ const n: usize = 9;
 pub var BackendgridLocation: ?*[n][n]u8 = null;
 
 pub fn exceptionInit() !void {
-    c.go.cellExceptions = try allocator.create([2]c.go.CellExeption);
+    c.go.cellExceptions = try allocator.create([3]c.go.CellExeption);
     c.go.cellExceptions.?.*[0].defined = false;
     c.go.cellExceptions.?.*[1].defined = false;
 }
@@ -133,12 +133,7 @@ pub fn drawFrontEndGrid() void {
     //Draw Numbers
     for (0..n) |i| {
         for (0..n) |j| {
-            const first_mistake: bool = c.go.cellExceptions.?.*[0].defined and j == c.go.cellExceptions.?.*[0].i_backend and i == c.go.cellExceptions.?.*[0].j_backend;
-            const second_mistake: bool = c.go.cellExceptions.?.*[1].defined and j == c.go.cellExceptions.?.*[1].i_backend and i == c.go.cellExceptions.?.*[1].j_backend;
-
-            if (!c.p.backendLifeBar[2] and (first_mistake or second_mistake)) {
-                c.go.paintInRedWrongCell(i, j);
-            }
+            c.go.paintInRedWrongCells();
 
             if (FrontendgridLocation.?.*[i][j].value[0] != ' ' and BackendgridLocation.?.*[j][i] == colored_number) {
                 hiligther_number(i, j);
@@ -306,7 +301,10 @@ pub fn isIntegerPressed() void {
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.backspace)) {
         integerSettingBackend(0);
         integerSettingFrontend(" ");
-        c.go.cellExceptions.?.*[0].defined = false;
+
+        if (c.go.currentEqualsToException(currentCellBackEnd.x, currentCellBackEnd.y)) |cell_index| {
+            c.go.cellExceptions.?.*[cell_index].defined = false;
+        }
     }
     if (c.rl.isKeyPressed(c.rl.KeyboardKey.one)) {
         integerSettingBackend(1);

@@ -29,7 +29,8 @@ pub fn loseLife() void {
 
         TopGridinterface();
         c.g.drawFrontEndGrid();
-        c.go.paintInRedWrongCell(c.g.currentCellBackEnd.y, c.g.currentCellBackEnd.x);
+        //c.go.paintInRedWrongCells();
+
         c.sn.soundControl.play(c.sn.game_over_sound);
         return;
     }
