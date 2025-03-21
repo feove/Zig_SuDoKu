@@ -82,6 +82,8 @@ pub var confirm_button: Button = undefined;
 pub var clear_button: Button = undefined;
 const button_spacement: f32 = 80;
 
+pub var integers_button: ?*[9]Button = null;
+
 pub fn initButtons() void {
     setting_background = Button{ .texture = c.tr.background_setting, .x = 100, .y = 100, .scale = 0.25 };
     resume_button = Button{ .texture = c.tr.resume_button, .x = 265, .y = 250, .scale = 0.2 };

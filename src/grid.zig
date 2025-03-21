@@ -66,8 +66,23 @@ pub fn exceptionInit() !void {
     c.go.cellExceptions.?.*[2].defined = false;
 }
 
+fn buttonsInit() !void {
+    c.s.integers_button = try allocator.create([9]c.s.Button);
+    c.s.integers_button.?.*[0] = c.s.one_button;
+    c.s.integers_button.?.*[1] = c.s.two_button;
+    c.s.integers_button.?.*[2] = c.s.three_button;
+    c.s.integers_button.?.*[3] = c.s.four_button;
+    c.s.integers_button.?.*[4] = c.s.five_button;
+    c.s.integers_button.?.*[5] = c.s.six_button;
+    c.s.integers_button.?.*[6] = c.s.seven_button;
+    c.s.integers_button.?.*[7] = c.s.eight_button;
+    c.s.integers_button.?.*[8] = c.s.nine_button;
+}
+
 pub fn BackendgridInit(difficulty: u8) !void {
     try exceptionInit();
+
+    try buttonsInit();
 
     const backend_grid = try allocator.create([n][n]u8);
 
@@ -361,24 +376,34 @@ fn integerSettingFrontend(integer: [:0]const u8) void {
         FrontendgridLocation.?.*[currentCellBackEnd.x][currentCellBackEnd.y].value = integer;
 }
 
+fn cursorOnCell(mousePos: c.rl.Vector2) bool {
+    const in_width: bool = mousePos.x > cursorlimits.x_left and mousePos.x < cursorlimits.x_right;
+    const in_height: bool = mousePos.y > cursorlimits.y_top and mousePos.y < cursorlimits.y_bottom;
+
+    return in_width and in_height;
+}
+
+fn moveCursor(mousePos: c.rl.Vector2) void {
+    const mouseX: i32 = @as(i32, @intFromFloat(mousePos.x));
+    const mouseY: i32 = @as(i32, @intFromFloat(mousePos.y));
+
+    cursorToLeft(mouseX);
+    cursorToRight(mouseX);
+
+    cursorToTop(mouseY);
+    cursorToBottom(mouseY);
+}
+
 fn isClickedOnCell() void {
-    if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
-        const mousePos = c.rl.getMousePosition();
+    const mousePos = c.rl.getMousePosition();
 
-        if (mousePos.x > cursorlimits.x_left and mousePos.x < cursorlimits.x_right and mousePos.y > cursorlimits.y_top and mousePos.y < cursorlimits.y_bottom) {
-            const mouseX: i32 = @as(i32, @intFromFloat(mousePos.x));
-            const mouseY: i32 = @as(i32, @intFromFloat(mousePos.y));
-
-            c.print("Mouse Clicked at: X: {d}, Y: {d}\n", .{ mouseX, mouseY });
-            c.print("Backend: X: {d}, Frontend: Y: {d}\n", .{ currentCellBackEnd.x, currentCellFrontEnd.x });
-
-            cursorToLeft(mouseX);
-            cursorToRight(mouseX);
-
-            cursorToTop(mouseY);
-            cursorToBottom(mouseY);
-
-            drawBackendGrid();
+    if (cursorOnCell(mousePos)) {
+        if (c.rl.isMouseButtonPressed(c.rl.MouseButton.right)) {
+            moveCursor(mousePos);
+            c.w.layer = c.w.Layer.QuickInputView;
+        }
+        if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {
+            moveCursor(mousePos);
         }
     }
 }

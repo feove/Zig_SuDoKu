@@ -2,7 +2,16 @@ const c = @import("constant.zig");
 
 pub var exitWindowByProgram = false;
 
-pub const Layer = enum { GameMenuView, PlayView, SettingView, EndGameView, OptionView, VictoryView, DraftSheetView };
+pub const Layer = enum {
+    GameMenuView,
+    PlayView,
+    SettingView,
+    EndGameView,
+    OptionView,
+    VictoryView,
+    DraftSheetView,
+    QuickInputView,
+};
 
 pub var previous_layer = Layer.GameMenuView;
 
@@ -14,6 +23,10 @@ pub var WonSound: bool = true;
 
 pub fn windowHasBeenQuit() bool {
     return c.rl.isKeyPressed(c.rl.KeyboardKey.a) or c.rl.isKeyPressed(c.rl.KeyboardKey.q);
+}
+
+pub fn QuickInputLayer() void {
+    c.q.panel_display();
 }
 
 pub fn DraftSheetLayer() void {

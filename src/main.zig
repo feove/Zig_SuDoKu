@@ -36,6 +36,7 @@ pub fn main() anyerror!void {
             (c.w.Layer.OptionView) => c.w.OptionsLayer(),
             (c.w.Layer.VictoryView) => c.w.VictoryLayer(),
             (c.w.Layer.DraftSheetView) => c.w.DraftSheetLayer(),
+            (c.w.Layer.QuickInputView) => c.w.QuickInputLayer(),
         };
     }
 }

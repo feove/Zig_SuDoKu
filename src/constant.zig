@@ -25,6 +25,7 @@ pub const o = @import("options_settings.zig");
 pub const v = @import("victory.zig");
 pub const sn = @import("sounds.zig");
 pub const d = @import("draft_sheet.zig");
+pub const q = @import("quick_input.zig");
 
 pub fn clear() void {
     stdout.writeAll("\x1b[2J\x1b[H") catch {};
