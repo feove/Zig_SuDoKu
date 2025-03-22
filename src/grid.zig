@@ -400,6 +400,7 @@ fn isClickedOnCell() void {
     if (cursorOnCell(mousePos)) {
         if (c.rl.isMouseButtonPressed(c.rl.MouseButton.right)) {
             moveCursor(mousePos);
+            drawSelectorGrid();
             c.w.layer = c.w.Layer.QuickInputView;
         }
         if (c.rl.isMouseButtonPressed(c.rl.MouseButton.left)) {

@@ -80,6 +80,7 @@ pub var nine_button: Button = undefined;
 
 pub var confirm_button: Button = undefined;
 pub var clear_button: Button = undefined;
+pub var cancel_button: Button = undefined;
 const button_spacement: f32 = 80;
 
 pub var integers_button: ?*[9]Button = null;
@@ -119,6 +120,7 @@ pub fn initButtons() void {
 
     clear_button = Button{ .texture = c.tr.clear_button, .x = 555, .y = 330, .scale = 1 };
     confirm_button = Button{ .texture = c.tr.confirm_button, .x = 540, .y = 400, .scale = 1 };
+    cancel_button = Button{ .texture = c.tr.cancel_button, .x = 555, .y = 370, .scale = 0.13 };
 }
 
 pub fn isPlayViewPressed() void {
