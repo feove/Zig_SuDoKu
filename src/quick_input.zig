@@ -10,6 +10,16 @@ pub fn panel_display() void {
     c.s.clear_button.color = if (c.s.clear_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
     c.s.confirm_button.color = if (c.s.confirm_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
 
+    c.s.one_button.color = if (c.s.one_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.two_button.color = if (c.s.two_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.three_button.color = if (c.s.three_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.four_button.color = if (c.s.four_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.five_button.color = if (c.s.five_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.six_button.color = if (c.s.six_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.seven_button.color = if (c.s.seven_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.eight_button.color = if (c.s.eight_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+    c.s.nine_button.color = if (c.s.nine_button.isHover()) c.rl.Color.gray else c.rl.Color.white;
+
     c.s.one_button.draw();
     c.s.two_button.draw();
     c.s.three_button.draw();
