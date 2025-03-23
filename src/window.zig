@@ -47,6 +47,8 @@ pub fn OptionsLayer() void {
     c.t.newText(c.t.Espial_Regular_Font, "Options", 270, 160, 60, 0, c.rl.Color.black);
 
     c.t.newText(c.t.Espial_Regular_Font, "Controls :", 185, 275, 40, 0, c.rl.Color.black);
+
+    c.t.newText(c.t.Espial_Regular_Font, "Quick Access : ", 185, 400, 35, 0, c.rl.Color.black);
 }
 
 pub fn GameMenuLayer() !void {

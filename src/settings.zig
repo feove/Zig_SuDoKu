@@ -81,6 +81,8 @@ pub var nine_button: Button = undefined;
 pub var confirm_button: Button = undefined;
 pub var clear_button: Button = undefined;
 pub var cancel_button: Button = undefined;
+
+pub var right_click_icon: Button = undefined;
 const button_spacement: f32 = 80;
 
 pub var integers_button: ?*[9]Button = null;
@@ -93,7 +95,7 @@ pub fn initButtons() void {
 
     setting_game_menu_button = Button{ .texture = c.tr.start_setting_button, .x = 650, .y = 660, .scale = 0.14 };
     reset_button = Button{ .texture = c.tr.reset_button, .x = 580, .y = 30, .scale = 0.15, .type = ButtonType.ARROW };
-    back_button = Button{ .texture = c.tr.back_button, .x = 305, .y = 475, .scale = 0.7, .type = ButtonType.BACK };
+    back_button = Button{ .texture = c.tr.back_button, .x = 360, .y = 520, .scale = 0.7, .type = ButtonType.BACK };
     pink_right_arrow = Button{ .texture = c.tr.pink_right_arrow, .x = 522, .y = 270, .scale = 0.5 };
     blue_left_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 420, .y = 270, .scale = 0.5 };
     blue_top_arrow = Button{ .texture = c.tr.blue_left_arrow, .x = 515, .y = 250, .scale = 0.5, .rotation = 90 };
@@ -102,8 +104,8 @@ pub fn initButtons() void {
     victory_panel = Button{ .texture = c.tr.victory_panel, .x = 70, .y = 185, .scale = 0.785 };
     victory_menu_button = Button{ .texture = c.tr.victory_menu_button, .x = 290, .y = 500, .scale = 0.7 };
 
-    mute_state_button = Button{ .texture = c.tr.mute_state_button, .x = 220, .y = 340, .scale = 0.8 };
-    unmute_state_button = Button{ .texture = c.tr.unmute_state_button, .x = 220, .y = 340, .scale = 0.8 };
+    mute_state_button = Button{ .texture = c.tr.mute_state_button, .x = 220, .y = 500, .scale = 0.8 };
+    unmute_state_button = Button{ .texture = c.tr.unmute_state_button, .x = 220, .y = 500, .scale = 0.8 };
     pencil_button = Button{ .texture = c.tr.pencil_button, .x = 515, .y = 30, .scale = 0.7, .type = ButtonType.ARROW };
     blanck_panel = Button{ .texture = c.tr.blanck_board_panel, .x = 90, .y = 235, .scale = 0.4 };
 
@@ -121,6 +123,8 @@ pub fn initButtons() void {
     clear_button = Button{ .texture = c.tr.clear_button, .x = 555, .y = 330, .scale = 1 };
     confirm_button = Button{ .texture = c.tr.confirm_button, .x = 540, .y = 400, .scale = 1 };
     cancel_button = Button{ .texture = c.tr.cancel_button, .x = 555, .y = 370, .scale = 0.13 };
+
+    right_click_icon = Button{ .texture = c.tr.right_click_icon, .x = 470, .y = 380, .scale = 0.13 };
 }
 
 pub fn isPlayViewPressed() void {

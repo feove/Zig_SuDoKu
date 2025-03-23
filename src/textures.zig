@@ -38,6 +38,7 @@ pub var eight_button: c.rl.Texture2D = undefined;
 pub var nine_button: c.rl.Texture2D = undefined;
 pub var confirm_button: c.rl.Texture2D = undefined;
 pub var clear_button: c.rl.Texture2D = undefined;
+pub var right_click_icon: c.rl.Texture2D = undefined;
 
 pub var blanck_board_panel: c.rl.Texture2D = undefined;
 pub var cancel_button: c.rl.Texture2D = undefined;
@@ -88,8 +89,8 @@ pub fn TexturesInit() !void {
     nine_button = try c.rl.loadTexture("image/integer_9.png");
     confirm_button = try c.rl.loadTexture("image/confirm_button.png");
     clear_button = try c.rl.loadTexture("image/delete_button.png");
+    right_click_icon = try c.rl.loadTexture("image/right_click_icon.png");
+    cancel_button = try c.rl.loadTexture("image/cancel_button.png");
 
     window_icon = try c.rl.loadImage("image/ic_sudoku.png");
-
-    cancel_button = try c.rl.loadTexture("image/cancel_button.png");
 }

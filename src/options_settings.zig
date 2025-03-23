@@ -20,6 +20,8 @@ pub fn buttons_setup() void {
     c.s.blue_top_arrow.draw();
     c.s.pink_bottom_arrow.draw();
 
+    c.s.right_click_icon.draw();
+
     if (c.sn.soundControl.canPlayAllSound) {
         c.s.unmute_state_button.draw();
     } else {
